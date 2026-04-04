@@ -75,5 +75,49 @@ def calendar():
     data = intervals_get("/events", params={"oldest": today, "newest": two_weeks})
     return jsonify(data)
 
+@app.route("/snapshot")
+def snapshot():
+    today = now_local().strftime("%Y-%m-%d")
+    day_of_week = now_local().strftime("%A")
+    two_weeks = (now_local() + timedelta(weeks=2)).strftime("%Y-%m-%d")
+
+    wellness_data = intervals_get("/wellness", params={"oldest": today, "newest": today})
+    w = wellness_data[0] if isinstance(wellness_data, list) and wellness_data else {}
+    ctl = round(w.get("ctl", 0), 1)
+    atl = round(w.get("atl", 0), 1)
+    tsb = round(ctl - atl, 1)
+    ramp = round(w.get("rampRate", 0), 1)
+
+    activities_data = intervals_get("/activities", params={
+        "oldest": (now_local() - timedelta(days=7)).strftime("%Y-%m-%d"),
+        "newest": today
+    })
+    activities = []
+    for a in (activities_data or [])[:4]:
+        secs = a.get("moving_time", 0)
+        h, m = divmod(secs // 60, 60)
+        dur = f"{h}h{m}m" if h else f"{m}m"
+        activities.append(f"  - {a.get('start_date_local','')[:10]} {a.get('type','')} \"{a.get('name','')}\" {dur} load:{a.get('icu_training_load','?')}")
+
+    calendar_data = intervals_get("/events", params={"oldest": today, "newest": two_weeks})
+    planned = []
+    for e in (calendar_data or [])[:4]:
+        planned.append(f"  - {e.get('start_date_local','')[:10]} {e.get('type','')} \"{e.get('name','')}\"")
+
+    snapshot_text = f"""=== COACH DATA SNAPSHOT ===
+Date: {today} ({day_of_week})
+
+LOAD
+  CTL: {ctl} | ATL: {atl} | TSB: {tsb} | Ramp: +{ramp}/week
+
+RECENT ACTIVITIES (last 7 days)
+{chr(10).join(activities) or '  none'}
+
+UPCOMING PLANNED
+{chr(10).join(planned) or '  none'}
+==========================="""
+
+    return snapshot_text, 200, {"Content-Type": "text/plain"}
+
 if __name__ == "__main__":
     app.run()
