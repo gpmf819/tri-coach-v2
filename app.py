@@ -7,12 +7,19 @@ import pytz
 app = Flask(__name__)
 
 INTERVALS_API_KEY = os.environ.get("INTERVALS_API_KEY")
+API_SECRET = os.environ.get("API_SECRET")
 ATHLETE_ID = "i169728"
 BASE_URL = f"https://intervals.icu/api/v1/athlete/{ATHLETE_ID}"
 TZ = pytz.timezone("America/Montreal")
 
 def now_local():
     return datetime.now(TZ)
+
+def check_auth():
+    token = request.headers.get("X-API-Key")
+    if token != API_SECRET:
+        return False
+    return True
 
 def intervals_get(path, params=None):
     response = requests.get(
@@ -25,6 +32,8 @@ def intervals_get(path, params=None):
 
 @app.route("/athlete")
 def athlete():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
     data = intervals_get("")
     return jsonify({
         "id": data.get("id"),
@@ -39,12 +48,16 @@ def athlete():
 
 @app.route("/wellness")
 def wellness():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
     today = now_local().strftime("%Y-%m-%d")
     data = intervals_get("/wellness", params={"oldest": today, "newest": today})
     return jsonify(data)
 
 @app.route("/activities")
 def activities():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
     days = int(request.args.get("days", 7))
     oldest = (now_local() - timedelta(days=days)).strftime("%Y-%m-%d")
     today = now_local().strftime("%Y-%m-%d")
@@ -53,6 +66,8 @@ def activities():
 
 @app.route("/calendar")
 def calendar():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
     today = now_local().strftime("%Y-%m-%d")
     two_weeks = (now_local() + timedelta(weeks=2)).strftime("%Y-%m-%d")
     data = intervals_get("/events", params={"oldest": today, "newest": two_weeks})
