@@ -97,7 +97,9 @@ def snapshot():
         secs = a.get("moving_time", 0)
         h, m = divmod(secs // 60, 60)
         dur = f"{h}h{m}m" if h else f"{m}m"
-        activities.append(f"  - {a.get('start_date_local','')[:10]} {a.get('type','')} \"{a.get('name','')}\" {dur} load:{a.get('icu_training_load','?')}")
+        rpe = a.get("icu_rpe") or "—"
+        feel = a.get("feel") or "—"
+        activities.append(f"  - {a.get('start_date_local','')[:10]} {a.get('type','')} \"{a.get('name','')}\" {dur} load:{a.get('icu_training_load','?')} RPE:{rpe} feel:{feel}")
 
     calendar_data = intervals_get("/events", params={"oldest": today, "newest": two_weeks})
     planned = []
