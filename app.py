@@ -3,8 +3,10 @@ import requests
 from flask import Flask, jsonify, request
 from datetime import datetime, timedelta
 import pytz
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 INTERVALS_API_KEY = os.environ.get("INTERVALS_API_KEY")
 API_SECRET = os.environ.get("API_SECRET")
