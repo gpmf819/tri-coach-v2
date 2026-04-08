@@ -1,3 +1,4 @@
+```python
 import os
 import requests
 from flask import Flask, jsonify, request
@@ -97,8 +98,8 @@ def snapshot():
         secs = a.get("moving_time", 0)
         h, m = divmod(secs // 60, 60)
         dur = f"{h}h{m}m" if h else f"{m}m"
-        rpe = a.get("icu_rpe") or "—"
-        feel = a.get("feel") or "—"
+        rpe = a.get("icu_rpe") or "-"
+        feel = a.get("feel") or "-"
         activities.append(f"  - {a.get('start_date_local','')[:10]} {a.get('type','')} \"{a.get('name','')}\" {dur} load:{a.get('icu_training_load','?')} RPE:{rpe} feel:{feel}")
 
     calendar_data = intervals_get("/events", params={"oldest": today, "newest": two_weeks})
@@ -121,5 +122,32 @@ UPCOMING PLANNED
 
     return snapshot_text, 200, {"Content-Type": "text/plain"}
 
+@app.route("/runpaces")
+def runpaces():
+    today = now_local().strftime("%Y-%m-%d")
+    oldest = (now_local() - timedelta(days=90)).strftime("%Y-%m-%d")
+    data = intervals_get("/activities", params={"oldest": oldest, "newest": today})
+
+    runs = [a for a in (data or []) if a.get("type") in ["Run", "VirtualRun"]]
+
+    result = []
+    for r in runs[:10]:
+        secs = r.get("moving_time", 0)
+        h, m = divmod(secs // 60, 60)
+        dur = f"{h}h{m}m" if h else f"{m}m"
+        dist = round((r.get("distance", 0) or 0) / 1000, 2)
+        pace_ms = r.get("pace", 0) or 0
+        pace_min = int(pace_ms // 60) if pace_ms else 0
+        pace_sec = int(pace_ms % 60) if pace_ms else 0
+        avg_hr = r.get("average_heartrate") or "-"
+        result.append(
+            f"{r.get('start_date_local','')[:10]} \"{r.get('name','')}\" "
+            f"{dist}km {dur} pace:{pace_min}:{pace_sec:02d}/km HR:{avg_hr} "
+            f"load:{r.get('icu_training_load','?')}"
+        )
+
+    return "\n".join(result), 200, {"Content-Type": "text/plain"}
+
 if __name__ == "__main__":
     app.run()
+```
