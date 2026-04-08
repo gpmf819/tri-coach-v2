@@ -136,8 +136,12 @@ def runpaces():
         dur = f"{h}h{m}m" if h else f"{m}m"
         dist = round((r.get("distance", 0) or 0) / 1000, 2)
         pace_ms = r.get("pace", 0) or 0
-        pace_min = int(pace_ms // 60) if pace_ms else 0
-        pace_sec = int(pace_ms % 60) if pace_ms else 0
+        if pace_ms and pace_ms > 0:
+            secs_per_km = 1000 / pace_ms
+            pace_min = int(secs_per_km // 60)
+            pace_sec = int(secs_per_km % 60)
+        else:
+            pace_min, pace_sec = 0, 0
         avg_hr = r.get("average_heartrate") or "-"
         result.append(
             f"{r.get('start_date_local','')[:10]} \"{r.get('name','')}\" "
