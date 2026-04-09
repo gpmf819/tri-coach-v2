@@ -14,20 +14,52 @@ ATHLETE_ID = "i169728"
 BASE_URL = f"https://intervals.icu/api/v1/athlete/{ATHLETE_ID}"
 TZ = pytz.timezone("America/Montreal")
 
+WORKOUT_LIBRARY = {
+    "NOR_Bike_MidWeek_4x8": {"type": "Ride", "moving_time": 4800},
+    "NOR_Bike_OverUnder_3x12": {"type": "Ride", "moving_time": 5160},
+    "NOR_Bike_RaceSim_Olympic": {"type": "Ride", "moving_time": 5160},
+    "NOR_Bike_SweetSpot_2x20": {"type": "Ride", "moving_time": 5400},
+    "NOR_Bike_SweetSpot_3x15": {"type": "Ride", "moving_time": 5940},
+    "NOR_Bike_ThresholdProgression_3x15": {"type": "Ride", "moving_time": 5940},
+    "NOR_Bike_VO2max_4x4": {"type": "Ride", "moving_time": 4200},
+    "NOR_Bike_VO2max_30_30": {"type": "Ride", "moving_time": 4200},
+    "NOR_Brick_BikeRun": {"type": "Ride", "moving_time": 5400},
+    "NOR_Run_5x6_Threshold": {"type": "Run", "moving_time": 4200},
+    "NOR_Run_Brick_OffBike": {"type": "Run", "moving_time": 1800},
+    "NOR_Run_Easy_Zone1": {"type": "Run", "moving_time": 2600},
+    "NOR_Run_Long_NegativeSplit": {"type": "Run", "moving_time": 4800},
+    "NOR_Run_PreRace_Opener": {"type": "Run", "moving_time": 1500},
+    "NOR_Run_RacePace_5x8": {"type": "Run", "moving_time": 5400},
+    "NOR_Run_Strides_Neuromuscular": {"type": "Run", "moving_time": 2700},
+    "NOR_Run_Tempo_3x12": {"type": "Run", "moving_time": 4440},
+    "NOR_Run_VO2max_7x3": {"type": "Run", "moving_time": 4800},
+    "NOR_Swim_EasyAerobic_30min": {"type": "Swim", "moving_time": 1800},
+    "NOR_Swim_CSS_Threshold_30min": {"type": "Swim", "moving_time": 1800},
+    "NOR_Swim_Speed_45min": {"type": "Swim", "moving_time": 2700},
+    "NOR_Swim_RaceSim_45min": {"type": "Swim", "moving_time": 2700},
+}
+
 def now_local():
     return datetime.now(TZ)
 
 def check_auth():
     token = request.headers.get("X-API-Key")
-    if token != API_SECRET:
-        return False
-    return True
+    return token == API_SECRET
 
 def intervals_get(path, params=None):
     response = requests.get(
         f"{BASE_URL}{path}",
         auth=("API_KEY", INTERVALS_API_KEY),
         params=params
+    )
+    response.raise_for_status()
+    return response.json()
+
+def intervals_post(path, payload):
+    response = requests.post(
+        f"{BASE_URL}{path}",
+        auth=("API_KEY", INTERVALS_API_KEY),
+        json=payload
     )
     response.raise_for_status()
     return response.json()
@@ -150,6 +182,61 @@ def runpaces():
         )
 
     return "\n".join(result), 200, {"Content-Type": "text/plain"}
+
+@app.route("/schedule", methods=["POST"])
+def schedule():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
+
+    data = request.get_json()
+    if not data or "workouts" not in data:
+        return jsonify({"error": "Missing workouts array"}), 400
+
+    results = []
+    errors = []
+
+    for item in data["workouts"]:
+        name = item.get("name", "").strip()
+        date = item.get("date", "").strip()
+
+        if not name or not date:
+            errors.append({"name": name, "error": "Missing name or date"})
+            continue
+
+        workout_meta = WORKOUT_LIBRARY.get(name)
+        if not workout_meta:
+            errors.append({"name": name, "error": "Workout not found in library"})
+            continue
+
+        try:
+            zwo_filename = f"{name}.zwo"
+            zwo_url = f"https://raw.githubusercontent.com/gaelmeagher/tri-coach-v2/main/workouts/{zwo_filename}"
+            zwo_response = requests.get(zwo_url)
+
+            if zwo_response.status_code == 200:
+                payload = {
+                    "category": "WORKOUT",
+                    "start_date_local": f"{date}T00:00:00",
+                    "type": workout_meta["type"],
+                    "filename": zwo_filename,
+                    "file_contents": zwo_response.text
+                }
+            else:
+                payload = {
+                    "category": "WORKOUT",
+                    "start_date_local": f"{date}T00:00:00",
+                    "type": workout_meta["type"],
+                    "name": name,
+                    "moving_time": workout_meta["moving_time"]
+                }
+
+            result = intervals_post("/events", payload)
+            results.append({"name": name, "date": date, "id": result.get("id"), "status": "scheduled"})
+
+        except Exception as e:
+            errors.append({"name": name, "date": date, "error": str(e)})
+
+    return jsonify({"scheduled": results, "errors": errors})
 
 if __name__ == "__main__":
     app.run()
