@@ -15,6 +15,55 @@ ATHLETE_ID = "i169728"
 BASE_URL = f"https://intervals.icu/api/v1/athlete/{ATHLETE_ID}"
 TZ = pytz.timezone("America/Montreal")
 
+# Intervals.icu library IDs — used by /schedule to post structured workouts
+# Swim workouts are not in the library; they fall back to ZWO file upload
+WORKOUT_IDS = {
+    # NOR Bike
+    "NOR_Bike_LowCadence_MuscTension": 22,
+    "NOR_Bike_Main_5x10": 23,
+    "NOR_Bike_MidWeek_4x8": 24,
+    "NOR_Bike_OverUnder_3x12": 25,
+    "NOR_Bike_RaceSim_Olympic": 26,
+    "NOR_Bike_SweetSpot_2x20": 27,
+    "NOR_Bike_SweetSpot_3x15": 28,
+    "NOR_Bike_ThresholdProgression_3x15": 29,
+    "NOR_Bike_VO2max_4x4": 30,
+    "NOR_Bike_VO2max_30_30": 31,
+    "NOR_Brick_BikeRun": 32,
+    # NOR Run
+    "NOR_Run_5x6_Threshold": 33,
+    "NOR_Run_VO2max_7x3": 34,
+    "NOR_Run_Brick_OffBike": 35,
+    "NOR_Run_Easy_Zone1": 36,
+    "NOR_Run_Long_NegativeSplit": 37,
+    "NOR_Run_PreRace_Opener": 38,
+    "NOR_Run_RacePace_5x8": 39,
+    "NOR_Run_Strides_Neuromuscular": 40,
+    "NOR_Run_Tempo_3x12": 41,
+    # PAM Series
+    "PAM03 z-5": 1,
+    "PAM05 z-5": 2,
+    "PAM06 z-5": 3,
+    "PAM07 z-5": 4,
+    "Power Cycling Enduro #02": 5,
+    "Power Cycling Enduro #03": 6,
+    "Power Cycling Enduro #04": 7,
+    "Tempo#00": 8,
+    "Tempo#01": 9,
+    "Tempo#02": 10,
+    "Tempo#05": 11,
+    "Tempo#08": 12,
+    "Tempo_Force": 13,
+    "FTK-13": 14,
+    "FTK-14": 15,
+    "Gimenez_01": 16,
+    "Gimenez_02": 17,
+    "PACING Prog #01": 18,
+    "PAM00 z-5": 19,
+    "PAM01 z-5": 20,
+    "PAM02 z-5": 21,
+}
+
 WORKOUT_LIBRARY = {
     # NOR Bike
     "NOR_Bike_MidWeek_4x8": {"type": "Ride", "moving_time": 4800},
@@ -249,26 +298,37 @@ def schedule():
             continue
 
         try:
-            zwo_filename = f"{name}.zwo"
-            zwo_url = f"https://raw.githubusercontent.com/gpmf819/tri-coach-v2/main/workouts/{quote(zwo_filename)}"
-            zwo_response = requests.get(zwo_url)
+            workout_id = WORKOUT_IDS.get(name)
 
-            if zwo_response.status_code == 200:
+            if workout_id:
                 payload = {
                     "category": "WORKOUT",
                     "start_date_local": f"{date}T00:00:00",
                     "type": workout_meta["type"],
-                    "filename": zwo_filename,
-                    "file_contents": zwo_response.text
+                    "workout_id": workout_id,
                 }
             else:
-                payload = {
-                    "category": "WORKOUT",
-                    "start_date_local": f"{date}T00:00:00",
-                    "type": workout_meta["type"],
-                    "name": name,
-                    "moving_time": workout_meta["moving_time"]
-                }
+                # Fallback for swim workouts (not in Intervals.icu library)
+                zwo_filename = f"{name}.zwo"
+                zwo_url = f"https://raw.githubusercontent.com/gpmf819/tri-coach-v2/main/workouts/{quote(zwo_filename)}"
+                zwo_response = requests.get(zwo_url)
+
+                if zwo_response.status_code == 200:
+                    payload = {
+                        "category": "WORKOUT",
+                        "start_date_local": f"{date}T00:00:00",
+                        "type": workout_meta["type"],
+                        "filename": zwo_filename,
+                        "file_contents": zwo_response.text,
+                    }
+                else:
+                    payload = {
+                        "category": "WORKOUT",
+                        "start_date_local": f"{date}T00:00:00",
+                        "type": workout_meta["type"],
+                        "name": name,
+                        "moving_time": workout_meta["moving_time"],
+                    }
 
             result = intervals_post("/events", payload)
             results.append({"name": name, "date": date, "id": result.get("id"), "status": "scheduled"})
