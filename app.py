@@ -216,6 +216,13 @@ def runpaces():
 
     return "\n".join(result), 200, {"Content-Type": "text/plain"}
 
+@app.route("/workouts")
+def workouts():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
+    data = intervals_get("/workouts")
+    return jsonify([{"id": w.get("id"), "name": w.get("name"), "type": w.get("type")} for w in (data or [])])
+
 @app.route("/schedule", methods=["POST"])
 def schedule():
     if not check_auth():
