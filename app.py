@@ -301,11 +301,15 @@ def schedule():
             workout_id = WORKOUT_IDS.get(name)
 
             if workout_id:
+                # Fetch the library workout to get its workout_doc (step structure)
+                library_workout = intervals_get(f"/workouts/{workout_id}")
                 payload = {
                     "category": "WORKOUT",
                     "start_date_local": f"{date}T00:00:00",
                     "type": workout_meta["type"],
-                    "workout_id": workout_id,
+                    "name": library_workout.get("name", name),
+                    "moving_time": library_workout.get("moving_time", workout_meta["moving_time"]),
+                    "workout_doc": library_workout.get("workout_doc"),
                 }
             else:
                 # Fallback for swim workouts (not in Intervals.icu library)
