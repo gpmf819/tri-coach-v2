@@ -1,0 +1,84 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>PAM00 z-5: 3x(6 x 30&apos;&apos;@ 105%PAM)</name>
+	<description>Séance spécifique pour stimuler le Vo2Max sur la plateforme Zwift..</description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<Warmup Duration="600" PowerHigh="0.6" PowerLow="0.4" Cadence="90">
+			<textevent timeoffset="0" message="Pédaler souple"/>
+		</Warmup>
+		<IntervalsT Repeat="2" OnDuration="30" OnPower="0.94" OffDuration="60" OffPower="0.65" Cadence="90" CadenceResting="95" >
+			<textevent timeoffset="0" message=""/>
+			<textevent timeoffset="30" message="cadence 100 RPM"/>
+			<textevent timeoffset="90" message=""/>
+			<textevent timeoffset="120" message="cadence 100 RPM"/>
+		</IntervalsT>
+		<IntervalsT Repeat="2" OnDuration="30" OnPower="1.06" OffDuration="60" OffPower="0.65" Cadence="93" CadenceResting="95" >
+			<textevent timeoffset="0" message=""/>
+			<textevent timeoffset="30" message=""/>
+			<textevent timeoffset="90" message=""/>
+			<textevent timeoffset="120" message=""/>
+		</IntervalsT>
+		<IntervalsT Repeat="2" OnDuration="30" OnPower="1.12" OffDuration="60" OffPower="0.65" Cadence="85" CadenceResting="100" >
+			<textevent timeoffset="0" message=""/>
+			<textevent timeoffset="30" message=""/>
+			<textevent timeoffset="90" message=""/>
+			<textevent timeoffset="120" message=""/>
+		</IntervalsT>
+		<SteadyState Duration="120" Power="0.5">
+			<textevent timeoffset="0" message="Beau travail ! Cadence au choix et on s&apos;hydrate"/>
+		</SteadyState>
+		<IntervalsT Repeat="6" OnDuration="30" OnPower="1.2" OffDuration="45" OffPower="0.5" Cadence="85" CadenceResting="98" >
+			<textevent timeoffset="0" message=""/>
+			<textevent timeoffset="30" message=""/>
+			<textevent timeoffset="75" message=""/>
+			<textevent timeoffset="105" message=""/>
+			<textevent timeoffset="150" message=""/>
+			<textevent timeoffset="180" message=""/>
+			<textevent timeoffset="225" message=""/>
+			<textevent timeoffset="255" message=""/>
+			<textevent timeoffset="300" message=""/>
+			<textevent timeoffset="330" message=""/>
+			<textevent timeoffset="375" message=""/>
+			<textevent timeoffset="405" message=""/>
+		</IntervalsT>
+		<SteadyState Duration="240" Power="0.5" Cadence="98">
+			<textevent timeoffset="0" message=""/>
+		</SteadyState>
+		<IntervalsT Repeat="6" OnDuration="30" OnPower="1.2" OffDuration="45" OffPower="0.5" Cadence="90" CadenceResting="100" >
+			<textevent timeoffset="0" message=""/>
+			<textevent timeoffset="30" message=""/>
+			<textevent timeoffset="75" message=""/>
+			<textevent timeoffset="105" message=""/>
+			<textevent timeoffset="150" message=""/>
+			<textevent timeoffset="180" message=""/>
+			<textevent timeoffset="225" message=""/>
+			<textevent timeoffset="255" message=""/>
+			<textevent timeoffset="300" message=""/>
+			<textevent timeoffset="330" message=""/>
+			<textevent timeoffset="375" message=""/>
+			<textevent timeoffset="405" message=""/>
+		</IntervalsT>
+		<SteadyState Duration="270" Power="0.5" Cadence="98">
+			<textevent timeoffset="0" message="Beau travail ! Cadence au choix et on s&apos;hydrate"/>
+		</SteadyState>
+		<IntervalsT Repeat="6" OnDuration="30" OnPower="1.2" OffDuration="45" OffPower="0.5" Cadence="105" CadenceResting="93" >
+			<textevent timeoffset="0" message=""/>
+			<textevent timeoffset="30" message=""/>
+			<textevent timeoffset="75" message=""/>
+			<textevent timeoffset="105" message=""/>
+			<textevent timeoffset="150" message=""/>
+			<textevent timeoffset="180" message=""/>
+			<textevent timeoffset="225" message=""/>
+			<textevent timeoffset="255" message=""/>
+			<textevent timeoffset="300" message=""/>
+			<textevent timeoffset="330" message=""/>
+			<textevent timeoffset="375" message=""/>
+			<textevent timeoffset="405" message=""/>
+		</IntervalsT>
+		<Cooldown Duration="480" PowerHigh="0.37" PowerLow="0.57" Cadence="95">
+			<textevent timeoffset="0" message="Beau travail ! Cadence au choix et on s&amp;apos;hydrate"/>
+		</Cooldown>
+	</workout>
+</workout_file>

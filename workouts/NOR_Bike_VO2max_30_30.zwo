@@ -1,0 +1,60 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Bike — VO2max 30/30s</n>
+    <description>VO2max 30/30 session. Priming: 2×30sec at 110% FTP + 8 min flush. Main set: 3 sets of 10×30sec ON at 120% / 30sec OFF, 5 min between sets. Cadence: 95–100 RPM on ONs, 85–90 RPM on OFFs. Total VO2 work: 15 min. Once per week max.</description>
+    <sportType>bike</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="VO2max"/><tag name="High Intensity"/></tags>
+    <workout>
+        
+        <!-- WARMUP: 15 min easy Zone 1 -->
+        <SteadyState Duration="900" Power="0.60">
+            <textevent timeoffset="0" message="Warm-up: 15 min easy Zone 1. HR under 150. Cadence: self-selected, 85–95 RPM."/>
+            <textevent timeoffset="600" message="10 min in. Priming efforts coming. Target cadence for intervals: 88–92 RPM."/>
+            <textevent timeoffset="780" message="2 min to go. Priming at 110% FTP — sharp, controlled, 95–100 RPM."/>
+        </SteadyState>
+        
+        <!-- PRIMING BLOCK: 2×30sec at 110% FTP + 8 min flush -->
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 1 — 30 sec at 110% FTP. Controlled. Primes VO2 kinetics. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0.55">
+            <textevent timeoffset="0" message="Easy spin. Cadence 85–90 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 2 — 30 sec at 110% FTP. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0.55">
+            <textevent timeoffset="0" message="Flush: 8 min easy. Cadence 85–90 RPM. Lactate clearing. Aerobic engine primed."/>
+            <textevent timeoffset="360" message="2 min to go. Target cadence for main set: 88–92 RPM throughout."/>
+            <textevent timeoffset="420" message="1 min to go. Settle breathing. First interval incoming."/>
+        </SteadyState>
+        <textevent timeoffset="0" message="SET 1 of 3 — Cadence ON: 95–100 RPM. OFF: 85–90 RPM."/>
+        <IntervalsT Repeat="10" OnDuration="30" OffDuration="30" OnPower="1.20" OffPower="0.55">
+            <textevent timeoffset="0" message="ON — 120% FTP. Drive cadence to 95–100 RPM."/>
+            <textevent timeoffset="30" message="OFF — Cadence 85–90 RPM. Recover."/>
+        </IntervalsT>
+        <SteadyState Duration="300" Power="0.55">
+            <textevent timeoffset="0" message="5 min recovery. Cadence 85–90 RPM. Let HR drop before set 2."/>
+            <textevent timeoffset="240" message="30 sec to go. Set 2 — same cadence targets."/>
+        </SteadyState>
+        <textevent timeoffset="0" message="SET 2 of 3 — Cadence ON: 95–100 RPM. Stay sharp."/>
+        <IntervalsT Repeat="10" OnDuration="30" OffDuration="30" OnPower="1.20" OffPower="0.55">
+            <textevent timeoffset="0" message="ON — Drive hard. 95–100 RPM."/>
+            <textevent timeoffset="30" message="OFF — 85–90 RPM. Recover immediately."/>
+        </IntervalsT>
+        <SteadyState Duration="300" Power="0.55">
+            <textevent timeoffset="0" message="5 min recovery. Final set coming."/>
+            <textevent timeoffset="240" message="30 sec to go. Last set."/>
+        </SteadyState>
+        <textevent timeoffset="0" message="SET 3 of 3 — Same quality as set 1. No fading."/>
+        <IntervalsT Repeat="10" OnDuration="30" OffDuration="30" OnPower="1.20" OffPower="0.55">
+            <textevent timeoffset="0" message="ON — 95–100 RPM. Last set."/>
+            <textevent timeoffset="30" message="OFF — 85–90 RPM. Almost done."/>
+        </IntervalsT>
+        <SteadyState Duration="900" Power="0.55">
+            <textevent timeoffset="0" message="Cool-down: 15 min easy. Cadence 85–90 RPM. Don't cut this short."/>
+            <textevent timeoffset="600" message="10 min in. 15 min of VO2max work completed."/>
+            <textevent timeoffset="840" message="Final minute. Once per week max."/>
+        </SteadyState>
+    </workout>
+</workout_file>

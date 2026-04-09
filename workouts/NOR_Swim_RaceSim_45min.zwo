@@ -1,0 +1,26 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Swim — Race Sim 45min</n>
+    <description>Olympic distance race simulation. 45min total. Warm-up 300m easy. Main set: 1500m continuous at race pace 2:02-2:05/100m (slightly above CSS). Cool-down 200m easy. Total ~2000m. Simulates Tremblant 1500m swim. No stopping in main set. Wetsuit optional last 2 sessions before race. 25m pool: flip turns, same pace.</description>
+    <sportType>swim</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Race Sim"/><tag name="Olympic Distance"/></tags>
+    <workout>
+        <SteadyState Duration="450" Power="0">
+            <textevent timeoffset="0" message="Warmup 300m easy."/>
+            <textevent timeoffset="360" message="1500m race sim next."/>
+        </SteadyState>
+        <SteadyState Duration="1800" Power="0">
+            <textevent timeoffset="0" message="1500m. 2:02-2:05/100m."/>
+            <textevent timeoffset="300" message="250m done. Settle in."/>
+            <textevent timeoffset="600" message="500m. Pace holding?"/>
+            <textevent timeoffset="900" message="750m. Halfway. Hold."/>
+            <textevent timeoffset="1200" message="1000m. Last 500m."/>
+            <textevent timeoffset="1500" message="1250m. Final push."/>
+            <textevent timeoffset="1680" message="Last 150m. Strong."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Cooldown 200m easy."/>
+            <textevent timeoffset="270" message="Done. Race sim complete."/>
+        </SteadyState>
+    </workout>
+</workout_file>

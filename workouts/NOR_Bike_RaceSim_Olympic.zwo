@@ -1,0 +1,54 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Bike — Race Sim Olympic Distance</n>
+    <description>Olympic distance race sim. Priming + 30 min at 92–97% FTP. Cadence: 88–92 RPM — race-realistic. HR 165–175 bpm. Use once in final 4 weeks before Tremblant. Follow with an easy day.</description>
+    <sportType>bike</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Race Simulation"/><tag name="Olympic Distance"/></tags>
+    <workout>
+        
+        <!-- WARMUP: 20 min easy Zone 1 -->
+        <SteadyState Duration="1200" Power="0.60">
+            <textevent timeoffset="0" message="Warm-up: 20 min easy Zone 1. HR under 150. Cadence: 85–95 RPM."/>
+            <textevent timeoffset="600" message="10 min in. Settle in. Priming efforts after warm-up."/>
+            <textevent timeoffset="1080" message="2 min to go. Priming next — 30 sec at 110% FTP, 95–100 RPM."/>
+        </SteadyState>
+        
+        <!-- PRIMING BLOCK: 2×30sec at 110% FTP + 8 min flush -->
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 1 — 30 sec at 110% FTP. Controlled. Primes VO2 kinetics. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0.55">
+            <textevent timeoffset="0" message="Easy spin. Cadence 85–90 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 2 — 30 sec at 110% FTP. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0.55">
+            <textevent timeoffset="0" message="Flush: 8 min easy. Cadence 85–90 RPM. Lactate clearing. Aerobic engine primed."/>
+            <textevent timeoffset="360" message="2 min to go. Target cadence for main set: 88–92 RPM throughout."/>
+            <textevent timeoffset="420" message="1 min to go. Settle breathing. First interval incoming."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.85">
+            <textevent timeoffset="0" message="BUILD — 2 min ramping to race pace. Cadence 88–90 RPM. Find it smoothly."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.90">
+            <textevent timeoffset="0" message="Building. Cadence 88–92 RPM. Approaching race pace."/>
+        </SteadyState>
+        <SteadyState Duration="1800" Power="0.945">
+            <textevent timeoffset="0" message="RACE SIM — 30 min at 92–97% FTP. Cadence: 88–92 RPM. This is Tremblant bike pace."/>
+            <textevent timeoffset="300" message="5 min in. HR climbing. Cadence check: 88–92 RPM."/>
+            <textevent timeoffset="600" message="10 min in. Settle in. Think about your run."/>
+            <textevent timeoffset="900" message="15 min — halfway. Cadence holding? Hold your watts."/>
+            <textevent timeoffset="1200" message="20 min in. Last 10 min. This is where races are won."/>
+            <textevent timeoffset="1500" message="25 min in. Last 5 min. Everything — controlled. Cadence 88–92 RPM."/>
+            <textevent timeoffset="1740" message="Last minute. Drive to the line."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0.70">
+            <textevent timeoffset="0" message="Transition spin — 3 min. Cadence 85–90 RPM. Simulate T2."/>
+        </SteadyState>
+        <SteadyState Duration="900" Power="0.55">
+            <textevent timeoffset="0" message="Cool-down: 15 min easy. Cadence 85–90 RPM. Race pace session complete."/>
+            <textevent timeoffset="840" message="Final minute. You know what Tremblant bike leg feels like."/>
+        </SteadyState>
+    </workout>
+</workout_file>

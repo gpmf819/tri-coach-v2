@@ -1,0 +1,99 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Run — VO2max 7x3</n>
+    <description>VO2max run intervals. Warmup + drills + 3 strides + flush. Main: 7x3min at 4:15-4:30/km (HR 175-183), 2min full recovery. Cadence 182-186 spm. Total VO2 work: 21min. Max once/week.</description>
+    <sportType>run</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="VO2max"/><tag name="High Intensity"/></tags>
+    <workout>
+        <SteadyState Duration="900" Power="0">
+            <textevent timeoffset="0" message="Warmup 15min. Easy."/>
+            <textevent timeoffset="600" message="Drills at 15min mark."/>
+            <textevent timeoffset="780" message="2min to drills."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="STOP. Dynamic drills."/>
+            <textevent timeoffset="180" message="Drills done. Strides."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 1. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 2. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 3. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Flush 8min easy."/>
+            <textevent timeoffset="360" message="2min to main set."/>
+            <textevent timeoffset="420" message="Int 1 incoming."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Int 1/7. 4:15-4:30/km."/>
+            <textevent timeoffset="90" message="Halfway. 182-186spm."/>
+            <textevent timeoffset="150" message="Last 30sec. Drive."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover 2min."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Int 2/7. 4:15-4:30/km."/>
+            <textevent timeoffset="90" message="Halfway. Hold form."/>
+            <textevent timeoffset="150" message="Last 30sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover. 5 more."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Int 3/7. 4:15-4:30/km."/>
+            <textevent timeoffset="90" message="Halfway. Hold it."/>
+            <textevent timeoffset="150" message="Last 30sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover. Halfway done."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Int 4/7. Mentally hard."/>
+            <textevent timeoffset="90" message="Halfway. Stay with it."/>
+            <textevent timeoffset="150" message="Last 30sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover. 3 more."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Int 5/7. Two more."/>
+            <textevent timeoffset="90" message="Halfway. Hold cadence."/>
+            <textevent timeoffset="150" message="Last 30sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover. 2 more."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Int 6/7. Don't fade."/>
+            <textevent timeoffset="90" message="Halfway. Last two."/>
+            <textevent timeoffset="150" message="Last 30sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Last recovery."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Int 7/7. Finish strong."/>
+            <textevent timeoffset="90" message="Halfway. Everything."/>
+            <textevent timeoffset="150" message="Last 30sec. Smooth."/>
+        </SteadyState>
+        <SteadyState Duration="900" Power="0">
+            <textevent timeoffset="0" message="Cooldown 15min easy."/>
+            <textevent timeoffset="600" message="10min in. Nearly done."/>
+            <textevent timeoffset="840" message="Done. Stretch after."/>
+        </SteadyState>
+    </workout>
+</workout_file>

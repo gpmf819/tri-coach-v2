@@ -1,0 +1,77 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Run — Race Pace 5x8</n>
+    <description>Olympic run pace session. Warmup + drills + 2 strides + flush. Main: 5x8min at 4:45-5:00/km (HR 165-172), 2min jog recovery. Cadence 178-182 spm. Total race-pace work: 40min.</description>
+    <sportType>run</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Race Pace"/><tag name="Olympic Distance"/></tags>
+    <workout>
+        <SteadyState Duration="900" Power="0">
+            <textevent timeoffset="0" message="Warmup. HR under 145."/>
+            <textevent timeoffset="600" message="Drills at 15min mark."/>
+            <textevent timeoffset="780" message="2min to drills."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="STOP. Dynamic drills."/>
+            <textevent timeoffset="180" message="Drills done. Strides."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="0">
+            <textevent timeoffset="0" message="Stride 1. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="0">
+            <textevent timeoffset="0" message="Stride 2. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Flush 8min easy."/>
+            <textevent timeoffset="360" message="2min to main set."/>
+            <textevent timeoffset="420" message="Int 1 incoming."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Int 1/5. 4:45-5:00/km."/>
+            <textevent timeoffset="240" message="Halfway. 178-182spm."/>
+            <textevent timeoffset="420" message="Last minute. Hold."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover 2min."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Int 2/5. Tremblant pace."/>
+            <textevent timeoffset="240" message="Halfway. Own it."/>
+            <textevent timeoffset="420" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover. 3 more."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Int 3/5. Trust fitness."/>
+            <textevent timeoffset="240" message="Halfway. Hold pace."/>
+            <textevent timeoffset="420" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Recover. 2 more."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Int 4/5. Hold form."/>
+            <textevent timeoffset="240" message="Halfway. One more."/>
+            <textevent timeoffset="420" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Last recovery."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Int 5/5. Finish strong."/>
+            <textevent timeoffset="240" message="Halfway. Own it."/>
+            <textevent timeoffset="420" message="Last minute. Strong."/>
+        </SteadyState>
+        <SteadyState Duration="900" Power="0">
+            <textevent timeoffset="0" message="Cooldown 15min easy."/>
+            <textevent timeoffset="600" message="10min in. Nearly done."/>
+            <textevent timeoffset="840" message="Done. Stretch after."/>
+        </SteadyState>
+    </workout>
+</workout_file>

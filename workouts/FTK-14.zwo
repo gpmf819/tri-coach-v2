@@ -1,0 +1,30 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>FTK-14: 4x1&apos;/10x20&apos;&apos;/4&apos;/4&apos;/4&apos;</name>
+	<description></description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<Warmup Duration="420" PowerHigh="0.55" PowerLow="0.35">
+			<textevent timeoffset="0" message=""/>
+		</Warmup>
+		<IntervalsT Repeat="4" OnDuration="30" OnPower="1.1" OffDuration="60" OffPower="0.63">
+		</IntervalsT>
+		<IntervalsT Repeat="4" OnDuration="60" OnPower="1.15" OffDuration="60" OffPower="0.45">
+		</IntervalsT>
+		<IntervalsT Repeat="10" OnDuration="20" OnPower="1.25" OffDuration="40" OffPower="0.45">
+		</IntervalsT>
+		<SteadyState Duration="270" Power="0.55">
+		</SteadyState>
+		<IntervalsT Repeat="3" OnDuration="240" OnPower="1" OffDuration="180" OffPower="0.5">
+			<textevent timeoffset="0" message="Cadence entre 85-95 RPM sur braquet moyen"/>
+			<textevent timeoffset="240" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="420" message="Cadence entre 85-95 RPM sur braquet moyen"/>
+			<textevent timeoffset="660" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="840" message="Cadence entre 85-95 RPM sur braquet moyen"/>
+			<textevent timeoffset="1080" message="Cadence entre 100-110 RPM sur braquet facile"/>
+		</IntervalsT>
+		<Cooldown Duration="210" PowerHigh="0.35" PowerLow="0.55">
+		</Cooldown>
+	</workout>
+</workout_file>

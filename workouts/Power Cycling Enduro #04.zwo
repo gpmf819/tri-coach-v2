@@ -1,0 +1,135 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>Power Cycling Enduro #04</name>
+	<description>Séance de type &apos;&apos;Tempo&apos;&apos; en z-3 = Intervalles moyen a long, a faire idéalement dans une position de compétition = aéro. Les cadences optimales seront indiquées durant la séances, mais tu peux aussi les ajuster selon ta forme du moment !</description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<SteadyState Duration="60" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="60" Power="0.56">
+		</SteadyState>
+		<SteadyState Duration="60" Power="0.57">
+		</SteadyState>
+		<SteadyState Duration="60" Power="0.58">
+		</SteadyState>
+		<SteadyState Duration="60" Power="0.59">
+		</SteadyState>
+		<SteadyState Duration="60" Power="0.6">
+		</SteadyState>
+		<SteadyState Duration="60" Power="0.61">
+		</SteadyState>
+		<SteadyState Duration="60" Power="0.62">
+		</SteadyState>
+		<SteadyState Duration="30" Power="0.9" Cadence="85">
+			<textevent timeoffset="0" message="Cadence 80-90 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="40" Power="0.55" Cadence="90">
+			<textevent timeoffset="0" message="Cadence 85-95 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="30" Power="0.9" Cadence="85">
+			<textevent timeoffset="0" message="Cadence 80-90 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="40" Power="0.55" Cadence="90">
+			<textevent timeoffset="0" message="Cadence 85-95 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="30" Power="1" Cadence="78">
+			<textevent timeoffset="0" message="Cadence 75-80 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="40" Power="0.55" Cadence="90">
+			<textevent timeoffset="0" message="Cadence 85-95 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="30" Power="1" Cadence="78">
+			<textevent timeoffset="0" message="Cadence 75-80 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="40" Power="0.55" Cadence="95">
+			<textevent timeoffset="0" message="Cadence 90-100 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="30" Power="1.2" Cadence="100">
+			<textevent timeoffset="0" message="Cadence 95-105 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="40" Power="0.55" Cadence="95">
+			<textevent timeoffset="0" message="Cadence 90-100 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="30" Power="1.2" Cadence="105">
+			<textevent timeoffset="0" message="Cadence 100-110 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="10" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="90" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="240" Power="0.8" Cadence="93">
+			<textevent timeoffset="0" message="Cadence 90-95 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.9" Cadence="88">
+			<textevent timeoffset="0" message="Cadence 85-90 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="120" Power="1" Cadence="80">
+			<textevent timeoffset="0" message="Cadence 75-85 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.4" Cadence="100">
+			<textevent timeoffset="0" message="Cadence 95-105 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="240" Power="0.8" Cadence="93">
+			<textevent timeoffset="0" message="Cadence 90-95 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.9" Cadence="88">
+			<textevent timeoffset="0" message="Cadence 85-90 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="60" Power="1" Cadence="80">
+			<textevent timeoffset="0" message="Cadence 75-85 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.4" Cadence="100">
+			<textevent timeoffset="0" message="Cadence 95-105 rpm"/>
+		</SteadyState>
+		<IntervalsT Repeat="10" OnDuration="15" OnPower="1.2" OffDuration="20" OffPower="0.55" Cadence="90" CadenceResting="95" >
+			<textevent timeoffset="0" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="15" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="35" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="50" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="70" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="85" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="105" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="120" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="140" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="155" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="175" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="190" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="210" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="225" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="245" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="260" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="280" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="295" message="Cadence 90-100 rpm"/>
+			<textevent timeoffset="315" message="Cadence 85-95 rpm"/>
+			<textevent timeoffset="330" message="Cadence 90-100 rpm"/>
+		</IntervalsT>
+		<SteadyState Duration="240" Power="0.6" Cadence="100">
+			<textevent timeoffset="0" message="Cadence 95-105 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="240" Power="0.85" Cadence="93">
+			<textevent timeoffset="0" message="Cadence 90-95 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="120" Power="0.95" Cadence="88">
+			<textevent timeoffset="0" message="Cadence 85-90 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="60" Power="1" Cadence="73">
+			<textevent timeoffset="0" message="Cadence 70-75 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="240" Power="0.4" Cadence="100">
+			<textevent timeoffset="0" message="Cadence 95-105 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="120" Power="1" Cadence="75">
+			<textevent timeoffset="0" message="Cadence 70-80 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.9" Cadence="88">
+			<textevent timeoffset="0" message="Cadence 85-90 rpm"/>
+		</SteadyState>
+		<SteadyState Duration="240" Power="0.8" Cadence="100">
+			<textevent timeoffset="0" message="Cadence 95-105 rpm"/>
+		</SteadyState>
+		<Cooldown Duration="370" PowerHigh="0.3" PowerLow="0.5" Cadence="98">
+			<textevent timeoffset="0" message="Cadence 90-105 rpm"/>
+		</Cooldown>
+	</workout>
+</workout_file>

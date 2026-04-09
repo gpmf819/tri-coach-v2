@@ -1,0 +1,29 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Run — Brick Off-Bike</n>
+    <description>Brick run simulating T2. No warmup — arrive fatigued. 5min easy legs adapting, 10min building, 10min at race pace 4:45-5:00/km (HR 165-172), 5min easy out. Total 30min.</description>
+    <sportType>run</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Brick"/><tag name="Race Specific"/></tags>
+    <workout>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Off bike. Legs heavy."/>
+            <textevent timeoffset="120" message="Adapting. Stay easy."/>
+            <textevent timeoffset="240" message="Build phase next."/>
+        </SteadyState>
+        <SteadyState Duration="600" Power="0">
+            <textevent timeoffset="0" message="Build 10min. Gradual."/>
+            <textevent timeoffset="300" message="Halfway. Building."/>
+            <textevent timeoffset="540" message="Race pace next."/>
+        </SteadyState>
+        <SteadyState Duration="600" Power="0">
+            <textevent timeoffset="0" message="Race pace. 4:45/km."/>
+            <textevent timeoffset="300" message="Halfway. HR 165-172."/>
+            <textevent timeoffset="480" message="Last 2min. Hold form."/>
+            <textevent timeoffset="540" message="Last minute. Strong."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Cooldown 5min easy."/>
+            <textevent timeoffset="240" message="Brick done. Well done."/>
+        </SteadyState>
+    </workout>
+</workout_file>

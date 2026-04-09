@@ -1,0 +1,23 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Swim — Easy Aerobic 30min</n>
+    <description>Pure aerobic swim. 30min total. Warm-up 200m easy, main set 800m at Z2 (2:10-2:15/100m), cool-down 200m easy. Focus: long stroke, bilateral breathing, relaxed turnover. CSS 2:00/100m. Pull buoy optional for second half. 25m pool: add turns, same total distance.</description>
+    <sportType>swim</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Aerobic"/><tag name="Easy"/></tags>
+    <workout>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Warmup 200m easy."/>
+            <textevent timeoffset="240" message="Main set starting."/>
+        </SteadyState>
+        <SteadyState Duration="1200" Power="0">
+            <textevent timeoffset="0" message="800m @ 2:10-2:15/100m."/>
+            <textevent timeoffset="300" message="200m done. Long stroke."/>
+            <textevent timeoffset="600" message="Halfway. Bilateral breathing."/>
+            <textevent timeoffset="900" message="Last 200m. Relax."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Cooldown 200m easy."/>
+            <textevent timeoffset="240" message="Done. 1200m total."/>
+        </SteadyState>
+    </workout>
+</workout_file>

@@ -1,0 +1,124 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Bike — Over/Under 3×12</n>
+    <description>Over/Under lactate clearance session. Priming: 2×30sec at 110% FTP + 8 min flush. Main set: 3×12 min alternating 2 min at 95% FTP (under) / 2 min at 105% FTP (over), 5 min recovery. Cadence: 88–92 RPM throughout. The 'over' spikes lactate production; the 'under' trains clearance under stress. Directly simulates Tremblant race surges. Total work: 36 min. Use in build phase, not alongside other threshold work that day.</description>
+    <sportType>bike</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Over Under"/><tag name="Lactate Clearance"/><tag name="Threshold"/></tags>
+    <workout>
+        
+        <!-- WARMUP: 15 min easy Zone 1 -->
+        <SteadyState Duration="900" Power="0.60">
+            <textevent timeoffset="0" message="Warm-up: 15 min easy Zone 1. HR under 150. Cadence: self-selected, 85–95 RPM."/>
+            <textevent timeoffset="600" message="10 min in. Priming efforts coming. Target cadence for intervals: 88–92 RPM."/>
+            <textevent timeoffset="780" message="2 min to go. Priming at 110% FTP — sharp, controlled, 95–100 RPM."/>
+        </SteadyState>
+        
+        <!-- PRIMING BLOCK: 2×30sec at 110% FTP + 8 min flush -->
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 1 — 30 sec at 110% FTP. Controlled. Primes VO2 kinetics. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0.55">
+            <textevent timeoffset="0" message="Easy spin. Cadence 85–90 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 2 — 30 sec at 110% FTP. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0.55">
+            <textevent timeoffset="0" message="Flush: 8 min easy. Cadence 85–90 RPM. Lactate clearing. Aerobic engine primed."/>
+            <textevent timeoffset="360" message="2 min to go. Target cadence for main set: 88–92 RPM throughout."/>
+            <textevent timeoffset="420" message="1 min to go. Settle breathing. First interval incoming."/>
+        </SteadyState>
+
+        <!-- INTERVAL 1: 3 cycles of 2min under / 2min over = 12 min -->
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="INTERVAL 1 — UNDER: 2 min at 95% FTP. Cadence 88–92 RPM. Settle in."/>
+            <textevent timeoffset="90" message="30 sec. Over coming — ramp up smoothly. No spiking."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 2 min at 105% FTP. Cadence 90–94 RPM. Controlled push above threshold."/>
+            <textevent timeoffset="90" message="30 sec. Back under — drop smoothly."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="UNDER: 2 min at 95% FTP. Cadence 88–92 RPM. Clearing lactate now."/>
+            <textevent timeoffset="90" message="30 sec. Over coming."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 2 min at 105% FTP. Cadence 90–94 RPM. Accumulate — you'll clear it."/>
+            <textevent timeoffset="90" message="30 sec. Back under."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="UNDER: 2 min at 95% FTP. Cadence 88–92 RPM. Last under of interval 1."/>
+            <textevent timeoffset="90" message="30 sec. Final over of this interval."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 2 min at 105% FTP. Cadence 90–94 RPM. Finish interval 1 strong."/>
+            <textevent timeoffset="90" message="30 sec. Recovery coming — you earned it."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0.55">
+            <textevent timeoffset="0" message="Recovery — 5 min. Cadence 85–90 RPM. Let HR and lactate settle fully."/>
+            <textevent timeoffset="240" message="1 min to go. Interval 2 — same structure. Ramp transitions smoothly."/>
+        </SteadyState>
+
+        <!-- INTERVAL 2 -->
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="INTERVAL 2 — UNDER: 95% FTP. Cadence 88–92 RPM."/>
+            <textevent timeoffset="90" message="Over coming in 30 sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 105% FTP. Cadence 90–94 RPM. Controlled."/>
+            <textevent timeoffset="90" message="Back under in 30 sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="UNDER: 95% FTP. Cadence 88–92 RPM. Clearing lactate."/>
+            <textevent timeoffset="90" message="Over coming."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 105% FTP. Cadence 90–94 RPM. HR building — hold it."/>
+            <textevent timeoffset="90" message="Back under."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="UNDER: 95% FTP. Cadence 88–92 RPM. Last under of interval 2."/>
+            <textevent timeoffset="90" message="Final over of this interval."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 105% FTP. Cadence 90–94 RPM. Finish strong."/>
+            <textevent timeoffset="90" message="Recovery coming."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0.55">
+            <textevent timeoffset="0" message="Recovery — 5 min. Cadence 85–90 RPM. Final interval coming."/>
+            <textevent timeoffset="240" message="1 min to go. Last 12 min. Same quality as interval 1."/>
+        </SteadyState>
+
+        <!-- INTERVAL 3 -->
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="INTERVAL 3 — UNDER: 95% FTP. Cadence 88–92 RPM. Last interval. Commit."/>
+            <textevent timeoffset="90" message="Over coming in 30 sec."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 105% FTP. Cadence 90–94 RPM. You know this by now."/>
+            <textevent timeoffset="90" message="Back under."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="UNDER: 95% FTP. Cadence 88–92 RPM. Lactate clearing."/>
+            <textevent timeoffset="90" message="Over coming."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 105% FTP. Cadence 90–94 RPM. Two more transitions."/>
+            <textevent timeoffset="90" message="Back under. Almost done."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0.95">
+            <textevent timeoffset="0" message="UNDER: 95% FTP. Cadence 88–92 RPM. Last under. Final over coming."/>
+            <textevent timeoffset="90" message="Last over in 30 sec. Finish it."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="1.05">
+            <textevent timeoffset="0" message="OVER: 105% FTP. Cadence 90–94 RPM. LAST EFFORT. Drive to the end."/>
+            <textevent timeoffset="90" message="30 sec. Hold on. Cool-down earned."/>
+        </SteadyState>
+
+        <SteadyState Duration="900" Power="0.55">
+            <textevent timeoffset="0" message="Cool-down: 15 min easy. Cadence 85–90 RPM. 36 min of over/under work done."/>
+            <textevent timeoffset="300" message="5 min in. This session directly trains Tremblant race-surge response."/>
+            <textevent timeoffset="840" message="Final minute. Excellent session."/>
+        </SteadyState>
+    </workout>
+</workout_file>

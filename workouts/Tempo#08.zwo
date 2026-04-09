@@ -1,0 +1,31 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>Tempo#08: 5x 5&apos;tempo1+2</name>
+	<description>Séance de type &apos;&apos;Tempo&apos;&apos; en z-3 = Intervalles moyen a long, a faire idéalement dans une position de compétition = aéro. Les cadences optimales seront indiquées durant la séances, mais tu peux aussi les ajuster selon ta forme du moment !</description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<Warmup Duration="600" PowerHigh="0.57" PowerLow="0.37">
+		</Warmup>
+		<IntervalsT Repeat="4" OnDuration="30" OnPower="1.06" OffDuration="45" OffPower="0.65">
+		</IntervalsT>
+		<SteadyState Duration="180" Power="0.82">
+		</SteadyState>
+		<SteadyState Duration="60" Power="1">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.65">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.82">
+		</SteadyState>
+		<SteadyState Duration="60" Power="1">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.65">
+		</SteadyState>
+		<SteadyState Duration="120" Power="0.65">
+		</SteadyState>
+		<IntervalsT Repeat="5" OnDuration="300" OnPower="0.9" OffDuration="120" OffPower="0.55">
+		</IntervalsT>
+		<Cooldown Duration="480" PowerHigh="0.3" PowerLow="0.5">
+		</Cooldown>
+	</workout>
+</workout_file>

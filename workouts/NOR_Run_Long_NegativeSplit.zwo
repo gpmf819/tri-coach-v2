@@ -1,0 +1,28 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Run — Long Negative Split</n>
+    <description>Long aerobic run 70min. First 35min Z1 HR under 145. Second 35min drift to Z2 HR 145-158. Cadence 170-176. Back half faster by feel — do not chase pace.</description>
+    <sportType>run</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Long Run"/><tag name="Aerobic Base"/></tags>
+    <workout>
+        <SteadyState Duration="2100" Power="0">
+            <textevent timeoffset="0" message="Z1 first 35min. Easy."/>
+            <textevent timeoffset="600" message="10min. HR under 145."/>
+            <textevent timeoffset="1200" message="20min. Cadence check."/>
+            <textevent timeoffset="1800" message="30min. Still easy."/>
+            <textevent timeoffset="2040" message="Halfway. Let HR drift."/>
+        </SteadyState>
+        <SteadyState Duration="1500" Power="0">
+            <textevent timeoffset="0" message="Z2 now. HR 145-158."/>
+            <textevent timeoffset="300" message="40min. Drifting up."/>
+            <textevent timeoffset="600" message="45min. Cadence check."/>
+            <textevent timeoffset="900" message="50min. Hold effort."/>
+            <textevent timeoffset="1200" message="55min. Last 15min."/>
+            <textevent timeoffset="1440" message="Last 10min. Steady."/>
+        </SteadyState>
+        <SteadyState Duration="600" Power="0">
+            <textevent timeoffset="0" message="Cooldown 10min easy."/>
+            <textevent timeoffset="540" message="Done. Stretch after."/>
+        </SteadyState>
+    </workout>
+</workout_file>

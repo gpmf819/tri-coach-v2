@@ -1,0 +1,69 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Run — 5x6 Threshold</n>
+    <description>Threshold run. 2x30sec strides + 8min flush. Main: 5x6min at 4:45-5:00/km (HR 162-170), 90sec jog recovery. Cadence 88-92 spm on intervals. Total threshold: 30min.</description>
+    <sportType>run</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Threshold"/></tags>
+    <workout>
+        <SteadyState Duration="900" Power="0">
+            <textevent timeoffset="0" message="Warmup. HR under 145."/>
+            <textevent timeoffset="600" message="Strides coming up."/>
+            <textevent timeoffset="780" message="2min to strides."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="0">
+            <textevent timeoffset="0" message="Stride 1. 92-96 spm."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Easy recovery jog."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="0">
+            <textevent timeoffset="0" message="Stride 2. 92-96 spm."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0">
+            <textevent timeoffset="0" message="Flush jog 8min easy."/>
+            <textevent timeoffset="360" message="2min to main set."/>
+            <textevent timeoffset="420" message="Int 1 incoming."/>
+        </SteadyState>
+        <SteadyState Duration="360" Power="0">
+            <textevent timeoffset="0" message="Int 1/5. 4:45-5:00/km."/>
+            <textevent timeoffset="180" message="Halfway. 88-92 spm."/>
+            <textevent timeoffset="300" message="Last minute. Smooth."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Recover. 4 more."/>
+        </SteadyState>
+        <SteadyState Duration="360" Power="0">
+            <textevent timeoffset="0" message="Int 2/5. 4:45-5:00/km."/>
+            <textevent timeoffset="180" message="Halfway. Hold pace."/>
+            <textevent timeoffset="300" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Recover. 3 more."/>
+        </SteadyState>
+        <SteadyState Duration="360" Power="0">
+            <textevent timeoffset="0" message="Int 3/5. 4:45-5:00/km."/>
+            <textevent timeoffset="180" message="Halfway. Trust it."/>
+            <textevent timeoffset="300" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Recover. 2 more."/>
+        </SteadyState>
+        <SteadyState Duration="360" Power="0">
+            <textevent timeoffset="0" message="Int 4/5. 4:45-5:00/km."/>
+            <textevent timeoffset="180" message="Halfway. One more."/>
+            <textevent timeoffset="300" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Last recovery."/>
+        </SteadyState>
+        <SteadyState Duration="360" Power="0">
+            <textevent timeoffset="0" message="Int 5/5. Finish strong."/>
+            <textevent timeoffset="180" message="Halfway. Hold line."/>
+            <textevent timeoffset="300" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="600" Power="0">
+            <textevent timeoffset="0" message="Cooldown 10min easy."/>
+            <textevent timeoffset="540" message="Final minute. Done."/>
+        </SteadyState>
+    </workout>
+</workout_file>

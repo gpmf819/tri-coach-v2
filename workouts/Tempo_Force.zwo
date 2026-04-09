@@ -1,0 +1,40 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>Tempo/Force (avec 8 x 6&apos; en force 65-75 RPM) 2hrs z-2</name>
+	<description>Échauffement 25&apos; z-2 / 6 x 20&apos;&apos; sur gros braquet cadence 85-80-75-70-65-60RPM r= 60&apos;&apos; cadence 100 RPM avec braquet souple.
+Set: 8 x 6&apos; en force = cadence 65-75 RPM r= 3&apos; braquet facile cadence 100 RPM
+-Cool down: terminer la séance en souplesse z-2
+-Étirements 3 x 30&apos;&apos; des quadriceps, ischios, fessiers, adducteurs, psoas, mollets, pectoraux, ...</description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<Warmup Duration="1200" PowerHigh="0.65" PowerLow="0.45">
+			<textevent timeoffset="0" message=""/>
+		</Warmup>
+		<IntervalsT Repeat="6" OnDuration="20" OnPower="1.06" OffDuration="60" OffPower="0.65">
+		</IntervalsT>
+		<SteadyState Duration="360" Power="0.5">
+			<textevent timeoffset="0" message="Éducatifs : 3 x (30&apos;&apos; jambe gauche-30&apos;&apos;jambe droite-60&apos; les deux jambes)"/>
+		</SteadyState>
+		<IntervalsT Repeat="8" OnDuration="360" OnPower="0.9" OffDuration="180" OffPower="0.55">
+			<textevent timeoffset="0" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="360" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="540" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="900" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="1080" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="1440" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="1620" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="1980" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="2160" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="2520" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="2700" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="3060" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="3240" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="3600" message="Cadence entre 100-110 RPM sur braquet facile"/>
+			<textevent timeoffset="3780" message="Cadence entre 65-75 RPM sur braquet moyen"/>
+			<textevent timeoffset="4140" message="Cadence entre 100-110 RPM sur braquet facile"/>
+		</IntervalsT>
+		<Cooldown Duration="900" PowerHigh="0.37" PowerLow="0.57">
+		</Cooldown>
+	</workout>
+</workout_file>

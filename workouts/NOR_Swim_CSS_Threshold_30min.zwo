@@ -1,0 +1,45 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Swim — CSS Threshold 30min</n>
+    <description>CSS threshold session. 30min total. Warm-up 200m easy + 4x25m build. Main set: 6x100m at CSS pace 2:00/100m with 20sec rest. Cool-down 100m easy. Total ~1300m. Key session for swim fitness. 25m pool: same distances, flip turns.</description>
+    <sportType>swim</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Threshold"/><tag name="CSS"/></tags>
+    <workout>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Warmup 200m easy."/>
+            <textevent timeoffset="240" message="4x25m build next."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="4x25m build. Easy-fast."/>
+            <textevent timeoffset="90" message="Last 25m. Main set."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Int 1/6. 2:00/100m."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Int 2/6. Hold CSS."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Int 3/6. Halfway."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Int 4/6. Hold form."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Int 5/6. Two more."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Int 6/6. Finish strong."/>
+            <textevent timeoffset="100" message="Last rest."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Cooldown 100m easy."/>
+            <textevent timeoffset="150" message="Done. CSS work complete."/>
+        </SteadyState>
+    </workout>
+</workout_file>

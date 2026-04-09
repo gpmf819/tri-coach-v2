@@ -1,0 +1,98 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>PAM06 z-5: 3x(6 x 30&apos;&apos;@ 105%PAM r=30&apos;&apos;) R=4&apos;</name>
+	<description>-Éch:10&apos;@ 60 % FC max (-Faire un échauffement progressif: 4&apos; @ 85 rpm, 4&apos; @ 90 rpm, 1&apos; @ 95 rpm et 1&apos; @ 100 rpm et 1&apos; @ 110)
+-éducatifs: 4 x 1&apos;30&apos;&apos; (30&apos;&apos; pédaler avec seulement la jambe gauche-30&apos;&apos; jambe droite- 30&apos;&apos; les deux jambes ensembles) r= 15&apos;&apos; souple en pédalage a reculons.
+-Accel: faire 4 a 5 accélérations progressives de 20&apos;&apos; cadence 90-100 RPM, r= 1&apos;20&apos;&apos; souple.
+-Set: 3x(6x30&apos;&apos;@ 105%PAM cadence 95@105 RPM r= 30&apos;&apos; souple) R= 4&apos; souple avec cadence @ 100-110 RPM. Alterner une répétition : braquet un peu plus facile que celui utilisé en compé, une répétition : braquet plus difficile que compé, et une répétition braquet de compé, ...)+Hydratation (boisson sportive et ou avec éléctrolytes)
+-Retour au calme : terminer la séance en z-1-2 souple. Hydratation!
+-A la fin, faire 3 x 30&apos;&apos; d&apos;étirements: Psoas, quads ischios, mollets, triceps pectoraux...</description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<Warmup Duration="600" PowerHigh="0.6" PowerLow="0.4">
+			<textevent timeoffset="0" message="Pédaler souple"/>
+		</Warmup>
+		<IntervalsT Repeat="2" OnDuration="30" OnPower="0.94" OffDuration="60" OffPower="0.65">
+			<textevent timeoffset="0" message="cadence 80 RPM"/>
+			<textevent timeoffset="30" message="cadence 100 RPM"/>
+			<textevent timeoffset="90" message="cadence 80 RPM"/>
+			<textevent timeoffset="120" message="cadence 100 RPM"/>
+		</IntervalsT>
+		<IntervalsT Repeat="2" OnDuration="30" OnPower="1.06" OffDuration="60" OffPower="0.65">
+			<textevent timeoffset="0" message="Debout - cadence 70 RPM "/>
+			<textevent timeoffset="30" message="cadence 100 RPM"/>
+			<textevent timeoffset="90" message="Debout - cadence 70 RPM "/>
+			<textevent timeoffset="120" message="cadence 100 RPM"/>
+		</IntervalsT>
+		<IntervalsT Repeat="2" OnDuration="30" OnPower="1.12" OffDuration="60" OffPower="0.65">
+			<textevent timeoffset="0" message="cadence 90 RPM"/>
+			<textevent timeoffset="30" message="cadence 100 RPM"/>
+			<textevent timeoffset="90" message="cadence 90 RPM"/>
+			<textevent timeoffset="120" message="cadence 100 RPM"/>
+		</IntervalsT>
+		<SteadyState Duration="360" Power="0.88">
+			<textevent timeoffset="0" message="6 x (45 secondes assis + 15 secondes debout) / Cadence 80 RPM"/>
+		</SteadyState>
+		<SteadyState Duration="300" Power="0.59">
+			<textevent timeoffset="0" message="cadence 100 RPM"/>
+		</SteadyState>
+		<IntervalsT Repeat="6" OnDuration="30" OnPower="1.2" OffDuration="30" OffPower="0.5">
+			<textevent timeoffset="0" message="cadence 110 RPM"/>
+			<textevent timeoffset="30" message="cadence 100 RPM"/>
+			<textevent timeoffset="60" message="cadence 110 RPM"/>
+			<textevent timeoffset="90" message="cadence 100 RPM"/>
+			<textevent timeoffset="120" message="cadence 110 RPM"/>
+			<textevent timeoffset="150" message="cadence 100 RPM"/>
+			<textevent timeoffset="180" message="cadence 110 RPM"/>
+			<textevent timeoffset="210" message="cadence 100 RPM"/>
+			<textevent timeoffset="240" message="cadence 110 RPM"/>
+			<textevent timeoffset="270" message="cadence 100 RPM"/>
+			<textevent timeoffset="300" message="cadence 110 RPM"/>
+			<textevent timeoffset="330" message="cadence 100 RPM"/>
+		</IntervalsT>
+		<SteadyState Duration="240" Power="0.5">
+			<textevent timeoffset="0" message="Beau travail ! Cadence au choix et on s&apos;hydrate"/>
+		</SteadyState>
+		<IntervalsT Repeat="6" OnDuration="30" OnPower="1.2" OffDuration="30" OffPower="0.5">
+			<textevent timeoffset="0" message="cadence 110-115 RPM"/>
+			<textevent timeoffset="30" message="cadence 100 RPM"/>
+			<textevent timeoffset="60" message="cadence 110-115 RPM"/>
+			<textevent timeoffset="90" message="cadence 100 RPM"/>
+			<textevent timeoffset="120" message="cadence 110-115 RPM"/>
+			<textevent timeoffset="150" message="cadence 100 RPM"/>
+			<textevent timeoffset="180" message="cadence 110-115 RPM"/>
+			<textevent timeoffset="210" message="cadence 100 RPM"/>
+			<textevent timeoffset="240" message="cadence 110-115 RPM"/>
+			<textevent timeoffset="270" message="cadence 100 RPM"/>
+			<textevent timeoffset="300" message="cadence 110-115 RPM"/>
+			<textevent timeoffset="330" message="cadence 100 RPM"/>
+		</IntervalsT>
+		<SteadyState Duration="270" Power="0.5">
+			<textevent timeoffset="0" message="Beau travail ! Cadence au choix et on s&apos;hydrate"/>
+		</SteadyState>
+		<IntervalsT Repeat="6" OnDuration="30" OnPower="1.2" OffDuration="30" OffPower="0.5">
+			<textevent timeoffset="0" message="cadence 115 RPM"/>
+			<textevent timeoffset="30" message="cadence 100 RPM"/>
+			<textevent timeoffset="60" message="cadence 115 RPM"/>
+			<textevent timeoffset="90" message="cadence 100 RPM"/>
+			<textevent timeoffset="120" message="cadence 115 RPM"/>
+			<textevent timeoffset="150" message="cadence 100 RPM"/>
+			<textevent timeoffset="180" message="cadence 115 RPM"/>
+			<textevent timeoffset="210" message="cadence 100 RPM"/>
+			<textevent timeoffset="240" message="cadence 115 RPM"/>
+			<textevent timeoffset="270" message="cadence 100 RPM"/>
+			<textevent timeoffset="300" message="cadence 115 RPM"/>
+			<textevent timeoffset="330" message="cadence 100 RPM"/>
+		</IntervalsT>
+		<SteadyState Duration="270" Power="0.5">
+			<textevent timeoffset="0" message="Beau travail ! Cadence au choix et on s&apos;hydrate"/>
+		</SteadyState>
+		<SteadyState Duration="240" Power="0.88">
+			<textevent timeoffset="0" message="4 x (45 secondes assis + 15 secondes debout) / Cadence 80 RPM"/>
+		</SteadyState>
+		<Cooldown Duration="600" PowerHigh="0.37" PowerLow="0.57">
+			<textevent timeoffset="0" message="Beau travail ! Cadence au choix et on s&amp;apos;hydrate"/>
+		</Cooldown>
+	</workout>
+</workout_file>

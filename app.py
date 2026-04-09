@@ -2,6 +2,7 @@ import os
 import requests
 from flask import Flask, jsonify, request
 from datetime import datetime, timedelta
+from urllib.parse import quote
 import pytz
 from flask_cors import CORS
 
@@ -15,6 +16,7 @@ BASE_URL = f"https://intervals.icu/api/v1/athlete/{ATHLETE_ID}"
 TZ = pytz.timezone("America/Montreal")
 
 WORKOUT_LIBRARY = {
+    # NOR Bike
     "NOR_Bike_MidWeek_4x8": {"type": "Ride", "moving_time": 4800},
     "NOR_Bike_OverUnder_3x12": {"type": "Ride", "moving_time": 5160},
     "NOR_Bike_RaceSim_Olympic": {"type": "Ride", "moving_time": 5160},
@@ -24,6 +26,9 @@ WORKOUT_LIBRARY = {
     "NOR_Bike_VO2max_4x4": {"type": "Ride", "moving_time": 4200},
     "NOR_Bike_VO2max_30_30": {"type": "Ride", "moving_time": 4200},
     "NOR_Brick_BikeRun": {"type": "Ride", "moving_time": 5400},
+    "NOR_Bike_LowCadence_MuscTension": {"type": "Ride", "moving_time": 4260},
+    "NOR_Bike_Main_5x10": {"type": "Ride", "moving_time": 6030},
+    # NOR Run
     "NOR_Run_5x6_Threshold": {"type": "Run", "moving_time": 4200},
     "NOR_Run_Brick_OffBike": {"type": "Run", "moving_time": 1800},
     "NOR_Run_Easy_Zone1": {"type": "Run", "moving_time": 2600},
@@ -33,10 +38,38 @@ WORKOUT_LIBRARY = {
     "NOR_Run_Strides_Neuromuscular": {"type": "Run", "moving_time": 2700},
     "NOR_Run_Tempo_3x12": {"type": "Run", "moving_time": 4440},
     "NOR_Run_VO2max_7x3": {"type": "Run", "moving_time": 4800},
+    # NOR Swim
     "NOR_Swim_EasyAerobic_30min": {"type": "Swim", "moving_time": 1800},
-    "NOR_Swim_CSS_Threshold_30min": {"type": "Swim", "moving_time": 1800},
-    "NOR_Swim_Speed_45min": {"type": "Swim", "moving_time": 2700},
-    "NOR_Swim_RaceSim_45min": {"type": "Swim", "moving_time": 2700},
+    "NOR_Swim_CSS_Threshold_30min": {"type": "Swim", "moving_time": 1320},
+    "NOR_Swim_Speed_45min": {"type": "Swim", "moving_time": 2010},
+    "NOR_Swim_RaceSim_45min": {"type": "Swim", "moving_time": 2550},
+    # PAM Series
+    "PAM00 z-5": {"type": "Ride", "moving_time": 2205},
+    "PAM01 z-5": {"type": "Ride", "moving_time": 3105},
+    "PAM02 z-5": {"type": "Ride", "moving_time": 2970},
+    "PAM03 z-5": {"type": "Ride", "moving_time": 2175},
+    "PAM05 z-5": {"type": "Ride", "moving_time": 2715},
+    "PAM06 z-5": {"type": "Ride", "moving_time": 3330},
+    "PAM07 z-5": {"type": "Ride", "moving_time": 2475},
+    # FTK Series
+    "FTK-13": {"type": "Ride", "moving_time": 1560},
+    "FTK-14": {"type": "Ride", "moving_time": 1590},
+    # Gimenez
+    "Gimenez_01": {"type": "Ride", "moving_time": 3420},
+    "Gimenez_02": {"type": "Ride", "moving_time": 3420},
+    # Pacing
+    "PACING Prog #01": {"type": "Ride", "moving_time": 1790},
+    # Power Cycling Enduro
+    "Power Cycling Enduro #02": {"type": "Ride", "moving_time": 4080},
+    "Power Cycling Enduro #03": {"type": "Ride", "moving_time": 4220},
+    "Power Cycling Enduro #04": {"type": "Ride", "moving_time": 4185},
+    # Tempo Series
+    "Tempo#00": {"type": "Ride", "moving_time": 1710},
+    "Tempo#01": {"type": "Ride", "moving_time": 2610},
+    "Tempo#02": {"type": "Ride", "moving_time": 2550},
+    "Tempo#05": {"type": "Ride", "moving_time": 3870},
+    "Tempo#08": {"type": "Ride", "moving_time": 2535},
+    "Tempo_Force": {"type": "Ride", "moving_time": 3080},
 }
 
 def now_local():
@@ -210,7 +243,7 @@ def schedule():
 
         try:
             zwo_filename = f"{name}.zwo"
-            zwo_url = f"https://raw.githubusercontent.com/gaelmeagher/tri-coach-v2/main/workouts/{zwo_filename}"
+            zwo_url = f"https://raw.githubusercontent.com/gpmf819/tri-coach-v2/main/workouts/{quote(zwo_filename)}"
             zwo_response = requests.get(zwo_url)
 
             if zwo_response.status_code == 200:

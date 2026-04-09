@@ -1,0 +1,40 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Run — Pre-Race Opener</n>
+    <description>Pre-race activation. 15min easy, 4x20sec strides at 95% speed with full recovery, 5min easy out. Total 25min. After this: eat, hydrate, rest. No more training until race.</description>
+    <sportType>run</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Pre-Race"/><tag name="Opener"/></tags>
+    <workout>
+        <SteadyState Duration="900" Power="0">
+            <textevent timeoffset="0" message="Easy jog. HR under 145."/>
+            <textevent timeoffset="600" message="Openers coming up."/>
+            <textevent timeoffset="780" message="2min to openers."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Opener 1. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Full recovery 2min."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Opener 2. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Full recovery 2min."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Opener 3. 185-190spm."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="Full recovery 2min."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Opener 4. Last one."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Jog out. System primed."/>
+            <textevent timeoffset="180" message="Almost done. Rest now."/>
+            <textevent timeoffset="240" message="Done. Eat and hydrate."/>
+        </SteadyState>
+    </workout>
+</workout_file>

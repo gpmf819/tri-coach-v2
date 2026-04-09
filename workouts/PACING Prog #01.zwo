@@ -1,0 +1,27 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>PACING Prog #01</name>
+	<description>Séance de type &apos;&apos;PACING&apos;&apos; , donc premiers intervalles longs en z-3 a faire idéalement dans une position de compétition = aéro. ,suivi d&apos; Intervalles moyen en z-4 et au final : intervalles courts en z-5-6,</description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<Warmup Duration="360" PowerHigh="0.57" PowerLow="0.37" Cadence="88">
+		</Warmup>
+		<IntervalsT Repeat="4" OnDuration="30" OnPower="1.06" OffDuration="30" OffPower="0.65" Cadence="88" CadenceResting="95" >
+		</IntervalsT>
+		<IntervalsT Repeat="2" OnDuration="30" OnPower="1.15" OffDuration="30" OffPower="0.65" Cadence="73" CadenceResting="95" >
+		</IntervalsT>
+		<SteadyState Duration="180" Power="0.55" Cadence="95">
+		</SteadyState>
+		<IntervalsT Repeat="2" OnDuration="360" OnPower="0.9" OffDuration="180" OffPower="0.55" Cadence="85" CadenceResting="95" >
+		</IntervalsT>
+		<IntervalsT Repeat="6" OnDuration="90" OnPower="1" OffDuration="60" OffPower="0.55" Cadence="90" CadenceResting="100" >
+		</IntervalsT>
+		<SteadyState Duration="120" Power="0.55">
+		</SteadyState>
+		<IntervalsT Repeat="8" OnDuration="20" OnPower="1.2" OffDuration="20" OffPower="0.55" Cadence="103" CadenceResting="95" >
+		</IntervalsT>
+		<Cooldown Duration="280" PowerHigh="0.3" PowerLow="0.5" Cadence="85">
+		</Cooldown>
+	</workout>
+</workout_file>

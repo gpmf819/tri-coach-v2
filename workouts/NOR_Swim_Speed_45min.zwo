@@ -1,0 +1,77 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Swim — Speed 45min</n>
+    <description>Neuromuscular speed session. 45min total. Warm-up 300m easy + drills. Main set: 10x50m at 1:50-1:55/100m effort with 30sec rest. Secondary: 4x100m at CSS 2:00/100m with 20sec rest. Cool-down 200m easy. Total ~1800m. Use paddles on CSS block. 25m pool: same distances.</description>
+    <sportType>swim</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Speed"/><tag name="Neuromuscular"/></tags>
+    <workout>
+        <SteadyState Duration="450" Power="0">
+            <textevent timeoffset="0" message="Warmup 300m easy."/>
+            <textevent timeoffset="360" message="Drills next. Focus form."/>
+        </SteadyState>
+        <SteadyState Duration="180" Power="0">
+            <textevent timeoffset="0" message="Drills: catch/pull focus."/>
+            <textevent timeoffset="150" message="Speed set starting."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast. 1:50/100m."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 2/10."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 3/10."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 4/10."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 5/10. Half."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 6/10."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 7/10."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 8/10."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 9/10."/>
+            <textevent timeoffset="50" message="30sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="60" Power="0">
+            <textevent timeoffset="0" message="50m fast 10/10. Last."/>
+            <textevent timeoffset="50" message="30sec rest. Paddles on."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="CSS 1/4. 2:00/100m."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="CSS 2/4. Hold pace."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="CSS 3/4. Hold form."/>
+            <textevent timeoffset="100" message="20sec rest."/>
+        </SteadyState>
+        <SteadyState Duration="120" Power="0">
+            <textevent timeoffset="0" message="CSS 4/4. Finish strong."/>
+            <textevent timeoffset="100" message="Last rest."/>
+        </SteadyState>
+        <SteadyState Duration="300" Power="0">
+            <textevent timeoffset="0" message="Cooldown 200m easy."/>
+            <textevent timeoffset="270" message="Done. 1800m total."/>
+        </SteadyState>
+    </workout>
+</workout_file>

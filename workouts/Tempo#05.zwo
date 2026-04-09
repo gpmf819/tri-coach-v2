@@ -1,0 +1,37 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>Tempo#05: 08-6-4 en Z-3 (85-95RPM)</name>
+	<description></description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<Warmup Duration="600" PowerHigh="0.56" PowerLow="0.36">
+		</Warmup>
+		<SteadyState Duration="60" Power="0.65">
+		</SteadyState>
+		<IntervalsT Repeat="3" OnDuration="30" OnPower="1.1" OffDuration="60" OffPower="0.65">
+		</IntervalsT>
+		<SteadyState Duration="180" Power="0.81">
+		</SteadyState>
+		<SteadyState Duration="60" Power="1">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.65">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.81">
+		</SteadyState>
+		<SteadyState Duration="60" Power="1">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.65">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.65">
+		</SteadyState>
+		<IntervalsT Repeat="1" OnDuration="480" OnPower="0.9" OffDuration="240" OffPower="0.55">
+		</IntervalsT>
+		<IntervalsT Repeat="1" OnDuration="360" OnPower="0.9" OffDuration="180" OffPower="0.55">
+		</IntervalsT>
+		<IntervalsT Repeat="1" OnDuration="240" OnPower="1" OffDuration="120" OffPower="0.55">
+		</IntervalsT>
+		<SteadyState Duration="480" Power="0.4">
+		</SteadyState>
+	</workout>
+</workout_file>

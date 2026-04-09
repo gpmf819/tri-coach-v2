@@ -1,0 +1,75 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Run — Strides Neuromuscular</n>
+    <description>Strides in easy run. 10min easy, 10x20sec strides at 95% speed with 90sec full recovery, 10min easy cooldown. Cadence on strides 185-192 spm. Total ~45min.</description>
+    <sportType>run</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Strides"/><tag name="Neuromuscular"/></tags>
+    <workout>
+        <SteadyState Duration="600" Power="0">
+            <textevent timeoffset="0" message="Warmup 10min. Easy."/>
+            <textevent timeoffset="480" message="Strides starting soon."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 1/10. 185-192."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 2/10. Relaxed."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 3/10. 185-192."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 4/10. 185-192."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 5/10. Halfway."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 6/10. 185-192."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 7/10. 185-192."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 8/10. 185-192."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 9/10. 185-192."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0">
+            <textevent timeoffset="0" message="Full recovery. Last one."/>
+        </SteadyState>
+        <SteadyState Duration="20" Power="0">
+            <textevent timeoffset="0" message="Stride 10/10. Done."/>
+        </SteadyState>
+        <SteadyState Duration="600" Power="0">
+            <textevent timeoffset="0" message="Cooldown 10min easy."/>
+            <textevent timeoffset="300" message="Legs feel springy?"/>
+            <textevent timeoffset="540" message="Done. Great session."/>
+        </SteadyState>
+    </workout>
+</workout_file>

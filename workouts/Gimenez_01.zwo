@@ -1,0 +1,63 @@
+<workout_file>
+	<author>Gael Meagher (via TrainingPeaks)</author>
+	<name>&apos;&apos;Gimenez&apos;&apos; #01 : Mixte z-5+3 (6x 30&apos;&apos; z-5+3&apos;30&apos;&apos;z3)</name>
+	<description>Échauffement: 15 min (5&apos; z-1, 5&apos; z-2, 5&apos; z-3)
+-4 x 30&apos;&apos; rapide - 30&apos;&apos; souple
+Set: 9x 30&apos;&apos; @ 100 PAM z-5 + 4&apos;30&apos;&apos; @ 75 % PAM z3, cela sans pause ! Pour stimuler et développer la PAM, l&apos;Endurance Qualité
+tous a candence entre 85-95 RPM
+Cool Down le reste de la séance en z-1-2 @ 100 RPM</description>
+	<sportType>bike</sportType>
+	<tags/>
+	<workout>
+		<SteadyState Duration="180" Power="0.6">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.65">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.7">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.75">
+		</SteadyState>
+		<SteadyState Duration="180" Power="0.8">
+		</SteadyState>
+		<IntervalsT Repeat="4" OnDuration="20" OnPower="1" OffDuration="40" OffPower="0.55">
+		</IntervalsT>
+		<SteadyState Duration="30" Power="1.2">
+		</SteadyState>
+		<SteadyState Duration="210" Power="0.85">
+		</SteadyState>
+		<SteadyState Duration="90" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="30" Power="1.2">
+		</SteadyState>
+		<SteadyState Duration="210" Power="0.85">
+		</SteadyState>
+		<SteadyState Duration="90" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="30" Power="1.2">
+		</SteadyState>
+		<SteadyState Duration="210" Power="0.85">
+		</SteadyState>
+		<SteadyState Duration="90" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="30" Power="1.2">
+		</SteadyState>
+		<SteadyState Duration="210" Power="0.85">
+		</SteadyState>
+		<SteadyState Duration="90" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="30" Power="1.2">
+		</SteadyState>
+		<SteadyState Duration="210" Power="0.85">
+		</SteadyState>
+		<SteadyState Duration="90" Power="0.55">
+		</SteadyState>
+		<SteadyState Duration="30" Power="1.2">
+		</SteadyState>
+		<SteadyState Duration="210" Power="0.85">
+		</SteadyState>
+		<SteadyState Duration="90" Power="0.55">
+		</SteadyState>
+		<Cooldown Duration="480" PowerHigh="0.3" PowerLow="0.5">
+		</Cooldown>
+	</workout>
+</workout_file>

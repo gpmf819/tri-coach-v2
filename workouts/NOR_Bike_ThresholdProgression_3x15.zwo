@@ -1,0 +1,66 @@
+<workout_file>
+    <author>Norwegian Method</author>
+    <n>NOR Bike — Threshold Progression 3×15</n>
+    <description>Race-specific threshold. Priming: 2×30sec at 110% FTP + 8 min flush. Main set: 3×15 min at 87–92% FTP, 4 min recovery. Cadence: 88–92 RPM. Warmup trimmed to 15 min to keep total session under 75 min. Total threshold work: 45 min. Use final 6–8 weeks before Tremblant.</description>
+    <sportType>bike</sportType>
+    <tags><tag name="Norwegian Method"/><tag name="Threshold"/><tag name="Race Specific"/></tags>
+    <workout>
+        
+        <!-- WARMUP: 15 min easy Zone 1 -->
+        <SteadyState Duration="900" Power="0.60">
+            <textevent timeoffset="0" message="Warm-up: 15 min easy Zone 1. HR under 150. Cadence: self-selected, 85–95 RPM."/>
+            <textevent timeoffset="600" message="10 min in. Priming efforts coming. Target cadence for intervals: 88–92 RPM."/>
+            <textevent timeoffset="780" message="2 min to go. Priming at 110% FTP — sharp, controlled, 95–100 RPM."/>
+        </SteadyState>
+        
+        <!-- PRIMING BLOCK: 2×30sec at 110% FTP + 8 min flush -->
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 1 — 30 sec at 110% FTP. Controlled. Primes VO2 kinetics. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="90" Power="0.55">
+            <textevent timeoffset="0" message="Easy spin. Cadence 85–90 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="30" Power="1.10">
+            <textevent timeoffset="0" message="PRIME 2 — 30 sec at 110% FTP. Cadence: 95–100 RPM."/>
+        </SteadyState>
+        <SteadyState Duration="480" Power="0.55">
+            <textevent timeoffset="0" message="Flush: 8 min easy. Cadence 85–90 RPM. Lactate clearing. Aerobic engine primed."/>
+            <textevent timeoffset="360" message="2 min to go. Target cadence for main set: 88–92 RPM throughout."/>
+            <textevent timeoffset="420" message="1 min to go. Settle breathing. First interval incoming."/>
+        </SteadyState>
+        <SteadyState Duration="900" Power="0.895">
+            <textevent timeoffset="0" message="INTERVAL 1/3 — 15 min threshold. Cadence: 88–92 RPM. Start controlled."/>
+            <textevent timeoffset="300" message="5 min in. HR climbing into zone. Cadence check."/>
+            <textevent timeoffset="600" message="10 min. Last 5. Race-specific territory. Hold."/>
+            <textevent timeoffset="840" message="Last minute. Smooth."/>
+        </SteadyState>
+        <SteadyState Duration="240" Power="0.55">
+            <textevent timeoffset="0" message="Recovery — 4 min. Cadence 85–90 RPM."/>
+            <textevent timeoffset="180" message="1 min to go."/>
+        </SteadyState>
+        <SteadyState Duration="900" Power="0.895">
+            <textevent timeoffset="0" message="INTERVAL 2/3 — Cadence 88–92 RPM. HR climbs faster — stay controlled."/>
+            <textevent timeoffset="300" message="5 min in. Tremblant bike pace territory."/>
+            <textevent timeoffset="600" message="10 min. Last 5. One more block after this."/>
+            <textevent timeoffset="840" message="Last minute."/>
+        </SteadyState>
+        <SteadyState Duration="240" Power="0.55">
+            <textevent timeoffset="0" message="Recovery. Last block. Cadence 85–90 RPM."/>
+            <textevent timeoffset="180" message="1 min to go. Commit fully."/>
+        </SteadyState>
+        <SteadyState Duration="900" Power="0.895">
+            <textevent timeoffset="0" message="INTERVAL 3/3 — Last 15 min. Cadence 88–92 RPM. No fading."/>
+            <textevent timeoffset="300" message="5 min in. HR at ceiling — hold watts regardless."/>
+            <textevent timeoffset="600" message="10 min. Last 5. Dig in."/>
+            <textevent timeoffset="780" message="2 min to go."/>
+            <textevent timeoffset="840" message="Last minute. Everything. Smooth finish."/>
+        </SteadyState>
+        
+        <!-- COOL-DOWN -->
+        <SteadyState Duration="900" Power="0.55">
+            <textevent timeoffset="0" message="Cool-down: 15 min easy. Cadence 85–90 RPM. Let HR fall naturally."/>
+            <textevent timeoffset="600" message="10 min in. Good work."/>
+            <textevent timeoffset="840" message="Final minute. Strong session."/>
+        </SteadyState>
+    </workout>
+</workout_file>
