@@ -2,7 +2,6 @@ import os
 import requests
 from flask import Flask, jsonify, request
 from datetime import datetime, timedelta
-from urllib.parse import quote
 import pytz
 from flask_cors import CORS
 
@@ -14,112 +13,6 @@ API_SECRET = os.environ.get("API_SECRET")
 ATHLETE_ID = "i169728"
 BASE_URL = f"https://intervals.icu/api/v1/athlete/{ATHLETE_ID}"
 TZ = pytz.timezone("America/Montreal")
-
-# Intervals.icu library IDs — used by /schedule to post structured workouts
-# Swim workouts are not in the library; they fall back to ZWO file upload
-WORKOUT_IDS = {
-    # NOR Bike
-    "NOR_Bike_LowCadence_MuscTension": 22,
-    "NOR_Bike_Main_5x10": 23,
-    "NOR_Bike_MidWeek_4x8": 24,
-    "NOR_Bike_OverUnder_3x12": 25,
-    "NOR_Bike_RaceSim_Olympic": 26,
-    "NOR_Bike_SweetSpot_2x20": 27,
-    "NOR_Bike_SweetSpot_3x15": 28,
-    "NOR_Bike_ThresholdProgression_3x15": 29,
-    "NOR_Bike_VO2max_4x4": 30,
-    "NOR_Bike_VO2max_30_30": 31,
-    "NOR_Brick_BikeRun": 32,
-    # NOR Run
-    "NOR_Run_5x6_Threshold": 33,
-    "NOR_Run_VO2max_7x3": 34,
-    "NOR_Run_Brick_OffBike": 35,
-    "NOR_Run_Easy_Zone1": 36,
-    "NOR_Run_Long_NegativeSplit": 37,
-    "NOR_Run_PreRace_Opener": 38,
-    "NOR_Run_RacePace_5x8": 39,
-    "NOR_Run_Strides_Neuromuscular": 40,
-    "NOR_Run_Tempo_3x12": 41,
-    # PAM Series
-    "PAM03 z-5": 1,
-    "PAM05 z-5": 2,
-    "PAM06 z-5": 3,
-    "PAM07 z-5": 4,
-    "Power Cycling Enduro #02": 5,
-    "Power Cycling Enduro #03": 6,
-    "Power Cycling Enduro #04": 7,
-    "Tempo#00": 8,
-    "Tempo#01": 9,
-    "Tempo#02": 10,
-    "Tempo#05": 11,
-    "Tempo#08": 12,
-    "Tempo_Force": 13,
-    "FTK-13": 14,
-    "FTK-14": 15,
-    "Gimenez_01": 16,
-    "Gimenez_02": 17,
-    "PACING Prog #01": 18,
-    "PAM00 z-5": 19,
-    "PAM01 z-5": 20,
-    "PAM02 z-5": 21,
-}
-
-WORKOUT_LIBRARY = {
-    # NOR Bike
-    "NOR_Bike_MidWeek_4x8": {"type": "Ride", "moving_time": 4800},
-    "NOR_Bike_OverUnder_3x12": {"type": "Ride", "moving_time": 5160},
-    "NOR_Bike_RaceSim_Olympic": {"type": "Ride", "moving_time": 5160},
-    "NOR_Bike_SweetSpot_2x20": {"type": "Ride", "moving_time": 5400},
-    "NOR_Bike_SweetSpot_3x15": {"type": "Ride", "moving_time": 5940},
-    "NOR_Bike_ThresholdProgression_3x15": {"type": "Ride", "moving_time": 5940},
-    "NOR_Bike_VO2max_4x4": {"type": "Ride", "moving_time": 4200},
-    "NOR_Bike_VO2max_30_30": {"type": "Ride", "moving_time": 4200},
-    "NOR_Brick_BikeRun": {"type": "Ride", "moving_time": 5400},
-    "NOR_Bike_LowCadence_MuscTension": {"type": "Ride", "moving_time": 4260},
-    "NOR_Bike_Main_5x10": {"type": "Ride", "moving_time": 6030},
-    # NOR Run
-    "NOR_Run_5x6_Threshold": {"type": "Run", "moving_time": 4200},
-    "NOR_Run_Brick_OffBike": {"type": "Run", "moving_time": 1800},
-    "NOR_Run_Easy_Zone1": {"type": "Run", "moving_time": 2600},
-    "NOR_Run_Long_NegativeSplit": {"type": "Run", "moving_time": 4800},
-    "NOR_Run_PreRace_Opener": {"type": "Run", "moving_time": 1500},
-    "NOR_Run_RacePace_5x8": {"type": "Run", "moving_time": 5400},
-    "NOR_Run_Strides_Neuromuscular": {"type": "Run", "moving_time": 2700},
-    "NOR_Run_Tempo_3x12": {"type": "Run", "moving_time": 4440},
-    "NOR_Run_VO2max_7x3": {"type": "Run", "moving_time": 4800},
-    # NOR Swim
-    "NOR_Swim_EasyAerobic_30min": {"type": "Swim", "moving_time": 1800},
-    "NOR_Swim_CSS_Threshold_30min": {"type": "Swim", "moving_time": 1320},
-    "NOR_Swim_Speed_45min": {"type": "Swim", "moving_time": 2010},
-    "NOR_Swim_RaceSim_45min": {"type": "Swim", "moving_time": 2550},
-    # PAM Series
-    "PAM00 z-5": {"type": "Ride", "moving_time": 2205},
-    "PAM01 z-5": {"type": "Ride", "moving_time": 3105},
-    "PAM02 z-5": {"type": "Ride", "moving_time": 2970},
-    "PAM03 z-5": {"type": "Ride", "moving_time": 2175},
-    "PAM05 z-5": {"type": "Ride", "moving_time": 2715},
-    "PAM06 z-5": {"type": "Ride", "moving_time": 3330},
-    "PAM07 z-5": {"type": "Ride", "moving_time": 2475},
-    # FTK Series
-    "FTK-13": {"type": "Ride", "moving_time": 1560},
-    "FTK-14": {"type": "Ride", "moving_time": 1590},
-    # Gimenez
-    "Gimenez_01": {"type": "Ride", "moving_time": 3420},
-    "Gimenez_02": {"type": "Ride", "moving_time": 3420},
-    # Pacing
-    "PACING Prog #01": {"type": "Ride", "moving_time": 1790},
-    # Power Cycling Enduro
-    "Power Cycling Enduro #02": {"type": "Ride", "moving_time": 4080},
-    "Power Cycling Enduro #03": {"type": "Ride", "moving_time": 4220},
-    "Power Cycling Enduro #04": {"type": "Ride", "moving_time": 4185},
-    # Tempo Series
-    "Tempo#00": {"type": "Ride", "moving_time": 1710},
-    "Tempo#01": {"type": "Ride", "moving_time": 2610},
-    "Tempo#02": {"type": "Ride", "moving_time": 2550},
-    "Tempo#05": {"type": "Ride", "moving_time": 3870},
-    "Tempo#08": {"type": "Ride", "moving_time": 2535},
-    "Tempo_Force": {"type": "Ride", "moving_time": 3080},
-}
 
 def now_local():
     return datetime.now(TZ)
@@ -291,60 +184,34 @@ def schedule():
     errors = []
 
     for item in data["workouts"]:
-        name = item.get("name", "").strip()
+        workout_id = item.get("workout_id")
         date = item.get("date", "").strip()
 
-        if not name or not date:
-            errors.append({"name": name, "error": "Missing name or date"})
-            continue
-
-        workout_meta = WORKOUT_LIBRARY.get(name)
-        if not workout_meta:
-            errors.append({"name": name, "error": "Workout not found in library"})
+        if not workout_id or not date:
+            errors.append({"workout_id": workout_id, "error": "Missing workout_id or date"})
             continue
 
         try:
-            workout_id = WORKOUT_IDS.get(name)
-
-            if workout_id:
-                # Fetch the library workout to get its workout_doc (step structure)
-                library_workout = intervals_get(f"/workouts/{workout_id}")
-                payload = {
-                    "category": "WORKOUT",
-                    "start_date_local": f"{date}T00:00:00",
-                    "type": workout_meta["type"],
-                    "name": library_workout.get("name", name),
-                    "moving_time": library_workout.get("moving_time", workout_meta["moving_time"]),
-                    "workout_doc": library_workout.get("workout_doc"),
-                }
-            else:
-                # Fallback for swim workouts (not in Intervals.icu library)
-                zwo_filename = f"{name}.zwo"
-                zwo_url = f"https://raw.githubusercontent.com/gpmf819/tri-coach-v2/main/workouts/{quote(zwo_filename)}"
-                zwo_response = requests.get(zwo_url)
-
-                if zwo_response.status_code == 200:
-                    payload = {
-                        "category": "WORKOUT",
-                        "start_date_local": f"{date}T00:00:00",
-                        "type": workout_meta["type"],
-                        "filename": zwo_filename,
-                        "file_contents": zwo_response.text,
-                    }
-                else:
-                    payload = {
-                        "category": "WORKOUT",
-                        "start_date_local": f"{date}T00:00:00",
-                        "type": workout_meta["type"],
-                        "name": name,
-                        "moving_time": workout_meta["moving_time"],
-                    }
-
+            workout = intervals_get(f"/workouts/{workout_id}")
+            payload = {
+                "category": "WORKOUT",
+                "start_date_local": f"{date}T00:00:00",
+                "type": workout["type"],
+                "name": workout["name"],
+                "moving_time": workout["moving_time"],
+                "description": workout["description"],
+            }
             result = intervals_post("/events", payload)
-            results.append({"name": name, "date": date, "id": result.get("id"), "status": "scheduled"})
+            results.append({
+                "workout_id": workout_id,
+                "name": workout["name"],
+                "date": date,
+                "id": result.get("id"),
+                "status": "scheduled",
+            })
 
         except Exception as e:
-            errors.append({"name": name, "date": date, "error": str(e)})
+            errors.append({"workout_id": workout_id, "date": date, "error": str(e)})
 
     return jsonify({"scheduled": results, "errors": errors})
 
