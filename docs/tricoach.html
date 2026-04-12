@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tri Coach">
+  <meta name="theme-color" content="#080a0f">
+  <title>Tri Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080a0f;
+      --surface: #0f1219;
+      --surface2: #161b24;
+      --border: #1e2635;
+      --accent: #00c9ff;
+      --accent2: #ff5a3c;
+      --text: #e8edf5;
+      --text-dim: #6b7a96;
+      --text-dimmer: #2e3a52;
+      --success: #00e49a;
+      --font-ui: 'Syne', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --r: 12px;
+      --r-sm: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      max-width: 680px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* — HEADER — */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent), #0066ff);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .logo-info {}
+    .logo-name {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      line-height: 1.1;
+    }
+    .logo-sub {
+      font-size: 10px;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      letter-spacing: 0.3px;
+    }
+
+    .header-right { display: flex; gap: 6px; }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-icon:hover, .btn-icon:active { background: var(--surface2); color: var(--text); border-color: var(--accent); }
+
+    /* — STATUS — */
+    .status-bar {
+      padding: 5px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-dimmer);
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .dot.ready { background: var(--success); box-shadow: 0 0 8px var(--success); }
+    .dot.thinking { background: var(--accent); animation: blink 1s infinite; }
+    .dot.error { background: var(--accent2); }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    /* — MESSAGES — */
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overscroll-behavior: contain;
+    }
+    .messages::-webkit-scrollbar { width: 3px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .msg { display: flex; flex-direction: column; max-width: 100%; animation: fadeUp 0.2s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+    .msg-user { align-items: flex-end; }
+    .msg-assistant { align-items: flex-start; }
+
+    .msg-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-dimmer);
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .bubble {
+      padding: 11px 14px;
+      border-radius: var(--r);
+      font-size: 14px;
+      line-height: 1.65;
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    .msg-user .bubble {
+      background: var(--accent);
+      color: #000;
+      font-weight: 500;
+      border-bottom-right-radius: 3px;
+    }
+
+    .msg-assistant .bubble {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom-left-radius: 3px;
+      color: var(--text);
+    }
+
+    /* Markdown inside bubbles */
+    .bubble strong { color: var(--accent); font-weight: 700; }
+    .bubble em { color: var(--text-dim); font-style: italic; }
+    .bubble code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+    .bubble pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 10px 12px;
+      margin: 8px 0;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .bubble pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 12px;
+    }
+    .bubble h2, .bubble h3 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 12px 0 5px;
+      letter-spacing: -0.2px;
+    }
+    .bubble h2:first-child, .bubble h3:first-child { margin-top: 0; }
+    .bubble ul, .bubble ol { padding-left: 18px; margin: 4px 0; }
+    .bubble li { margin: 2px 0; }
+    .bubble p { margin: 5px 0; }
+    .bubble p:first-child { margin-top: 0; }
+    .bubble p:last-child { margin-bottom: 0; }
+    .bubble hr { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
+    .bubble table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 8px 0; }
+    .bubble th {
+      background: var(--surface2); padding: 6px 8px; text-align: left;
+      font-weight: 600; color: var(--text-dim); font-size: 11px;
+      font-family: var(--font-mono); border-bottom: 1px solid var(--border);
+    }
+    .bubble td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+    .bubble tr:last-child td { border-bottom: none; }
+    .bubble blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+      margin: 6px 0;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* Schedule card */
+    .schedule-card {
+      margin-top: 10px;
+      background: var(--bg);
+      border: 1px solid var(--accent);
+      border-radius: var(--r);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .schedule-info { flex: 1; }
+    .schedule-info strong { display: block; font-size: 12px; color: var(--text); margin-bottom: 2px; }
+    .schedule-info span { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); }
+
+    .btn-post {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: var(--r-sm);
+      padding: 8px 13px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .btn-post:hover { background: #33d8ff; }
+    .btn-post:disabled { background: var(--text-dimmer); cursor: not-allowed; }
+    .btn-post.posted { background: var(--success); color: #000; }
+
+    /* Typing */
+    .typing-wrap { align-items: flex-start; }
+    .typing {
+      display: flex; gap: 4px; padding: 13px 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r); border-bottom-left-radius: 3px;
+    }
+    .typing-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--text-dim);
+      animation: bounce 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-5px);opacity:1} }
+
+    /* Empty state */
+    .empty {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 6px; text-align: center; padding: 32px;
+      color: var(--text-dimmer);
+    }
+    .empty-icon { font-size: 44px; margin-bottom: 8px; }
+    .empty-title { font-size: 16px; font-weight: 700; color: var(--text-dim); }
+    .empty-sub { font-size: 13px; line-height: 1.6; max-width: 260px; color: var(--text-dimmer); }
+
+    /* — QUICK ACTIONS — */
+    .quick-actions {
+      display: flex; gap: 6px;
+      padding: 8px 16px 0;
+      overflow-x: auto;
+      flex-shrink: 0;
+    }
+    .quick-actions::-webkit-scrollbar { display: none; }
+    .quick-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      color: var(--text-dim);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .quick-btn:hover, .quick-btn:active {
+      background: var(--surface2);
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    /* — INPUT — */
+    .input-area {
+      padding: 10px 16px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .input-row {
+      display: flex; gap: 8px; align-items: flex-end;
+    }
+
+    .input-wrap {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      transition: border-color 0.15s;
+    }
+    .input-wrap:focus-within { border-color: var(--accent); }
+
+    textarea {
+      flex: 1; background: none; border: none; outline: none;
+      color: var(--text); font-family: var(--font-ui);
+      font-size: 15px; line-height: 1.4;
+      resize: none; max-height: 120px; min-height: 22px;
+    }
+    textarea::placeholder { color: var(--text-dimmer); }
+
+    .btn-send {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .btn-send:hover { background: #33d8ff; transform: scale(1.06); }
+    .btn-send:active { transform: scale(0.94); }
+    .btn-send:disabled { background: var(--text-dimmer); cursor: not-allowed; transform: none; }
+
+    /* — MODAL — */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: flex; align-items: flex-end;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    .sheet {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 20px 20px 0 0;
+      padding: 16px 20px;
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+      width: 100%; max-width: 680px; margin: 0 auto;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .overlay.open .sheet { transform: translateY(0); }
+
+    .sheet-handle {
+      width: 36px; height: 4px; background: var(--border);
+      border-radius: 2px; margin: 0 auto 18px;
+    }
+    .sheet-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .sheet-sub { font-size: 12px; color: var(--text-dim); margin-bottom: 18px; }
+
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: 10px;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%; background: var(--bg);
+      border: 1px solid var(--border); border-radius: var(--r-sm);
+      padding: 10px 12px; color: var(--text);
+      font-family: var(--font-mono); font-size: 13px;
+      outline: none; transition: border-color 0.15s;
+    }
+    .field input:focus { border-color: var(--accent); }
+    .field input::placeholder { color: var(--text-dimmer); }
+    .field-hint { font-size: 11px; color: var(--text-dimmer); margin-top: 4px; line-height: 1.4; }
+
+    .btn-primary {
+      width: 100%; background: var(--accent); color: #000;
+      border: none; border-radius: var(--r);
+      padding: 14px; font-family: var(--font-ui);
+      font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: background 0.15s; margin-top: 6px;
+    }
+    .btn-primary:hover { background: #33d8ff; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
+
+    .danger-btn {
+      width: 100%; background: none;
+      border: 1px solid var(--border); border-radius: var(--r);
+      padding: 12px; font-family: var(--font-ui);
+      font-size: 13px; font-weight: 600;
+      color: var(--accent2); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .danger-btn:hover { background: rgba(255,90,60,0.1); border-color: var(--accent2); }
+
+    /* — TOAST — */
+    .toast {
+      position: fixed; bottom: 90px; left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 9px 18px;
+      font-size: 13px; color: var(--text);
+      z-index: 200; opacity: 0;
+      transition: all 0.25s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.ok { border-color: var(--success); color: var(--success); }
+    .toast.err { border-color: var(--accent2); color: var(--accent2); }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-mark">🚴</div>
+      <div class="logo-info">
+        <div class="logo-name">Tri Coach</div>
+        <div class="logo-sub">Gaël · Tremblant 5150 · Jun 20</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="btn-icon" onclick="newSession()" title="New session">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="btn-icon" onclick="openSettings()" title="Settings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-bar">
+    <div class="dot" id="statusDot"></div>
+    <span id="statusText">Configure API key to start</span>
+  </div>
+
+  <!-- MESSAGES -->
+  <div class="messages" id="messages">
+    <div class="empty" id="emptyState">
+      <div class="empty-icon">🏊‍♂️🚴‍♂️🏃‍♂️</div>
+      <div class="empty-title">Ready to train</div>
+      <div class="empty-sub">Ask me to plan your week, check your load, or review your schedule.</div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS (only show when no messages) -->
+  <div class="quick-actions" id="quickActions">
+    <button class="quick-btn" onclick="quickSend('Plan my week')">📅 Plan week</button>
+    <button class="quick-btn" onclick="quickSend('How is my training load looking?')">📊 Check load</button>
+    <button class="quick-btn" onclick="quickSend('What does today look like?')">🎯 Today</button>
+    <button class="quick-btn" onclick="quickSend('I feel tired, adjust the plan')">😴 Adjust for fatigue</button>
+    <button class="quick-btn" onclick="quickSend('post it')">✅ Post it</button>
+  </div>
+
+  <!-- INPUT -->
+  <div class="input-area">
+    <div class="input-row">
+      <div class="input-wrap">
+        <textarea id="input" placeholder="Message your coach…" rows="1"
+          onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      </div>
+      <button class="btn-send" id="sendBtn" onclick="handleSend()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- SETTINGS SHEET -->
+<div class="overlay" id="settingsOverlay" onclick="closeSettings(event)">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Settings</div>
+    <div class="sheet-sub">Stored locally on this device. Anthropic key is stored on Railway — not needed here.</div>
+
+    <div class="field">
+      <label>Railway Proxy URL</label>
+      <input type="text" id="s-railway-url" placeholder="https://tri-coach-v2-production.up.railway.app">
+    </div>
+
+    <div class="field">
+      <label>Railway API Key</label>
+      <input type="password" id="s-railway-key" placeholder="tricoach-gael-2026-…">
+    </div>
+
+    <button class="btn-primary" onclick="saveSettings()">Save & Connect</button>
+
+    <hr class="divider">
+    <button class="danger-btn" onclick="clearAll()">Clear all data & reset</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─────────────────────────────────────────────
+//  SYSTEM PROMPT
+// ─────────────────────────────────────────────
+const SYSTEM_PROMPT = `You are an elite triathlon coach working with a single athlete: Gaël, a Montreal-based competitive age-group triathlete targeting a top-5 finish at the Tremblant 5150 Olympic Distance triathlon on June 20, 2026.
+
+## Athlete Profile
+- FTP: 292W | Swim CSS: 2:00/100m | Weight: 75kg
+- Bike & Run LTHR: 172 bpm | Max HR: 190 bpm | Resting HR: 53 bpm
+- Timezone: America/Montreal | Intervals.icu ID: i169728
+
+## Race Goal
+Top-5 age group finish. Olympic distance: 1500m swim / 40km bike / 10km run.
+
+## Training Philosophy
+Polarized 80/20 — 80% Z1–Z2, 20% threshold or above.
+- Sub-threshold is the primary quality stimulus in base/build phases
+- VO2max introduced in sharpening block (final 6–8 weeks before June 20)
+- Double-threshold structure preferred Tue/Thu when load allows
+- CTL target: 48 at peak
+- TSB guardrail: flag if below −20 for 3+ consecutive days
+
+## Intensity Zones
+
+### Bike (power-based)
+- Z1: <161W (<55% FTP)
+- Z2: 163–219W (56–75% FTP)
+- Z3: 221–262W (76–90% FTP)
+- Z4: 265–306W (91–105% FTP)
+- Z5: >306W (>105% FTP)
+
+### Run (pace-based — HR confirmatory only)
+- Z1–Z2 easy: 5:30–6:15/km | HR under 152 bpm
+- Sub-threshold/tempo: 5:00–5:15/km | HR 155–163 bpm
+- Threshold: 4:45–5:00/km | HR 162–170 bpm
+- VO2max: 4:15–4:30/km | HR 175–183 bpm
+- HR has 60–90 sec lag — pace is primary, HR is post-session confirmation
+
+### Swim (CSS-based)
+- Easy: >2:15/100m | Aerobic: 2:05–2:15/100m
+- Threshold (CSS): 2:00/100m | Speed: <1:55/100m | Race pace: 2:02–2:05/100m
+
+## Workout Library
+Always prescribe by exact filename without .zwo extension.
+
+### Bike (NOR series)
+- NOR_Bike_MidWeek_4x8 — mid-week threshold
+- NOR_Bike_OverUnder_3x12 — over/under lactate clearance
+- NOR_Bike_RaceSim_Olympic — race simulation
+- NOR_Bike_SweetSpot_2x20 — aerobic base
+- NOR_Bike_SweetSpot_3x15 — aerobic base volume
+- NOR_Bike_ThresholdProgression_3x15 — progressive threshold
+- NOR_Bike_VO2max_4x4 — VO2max sharpening
+- NOR_Bike_VO2max_30_30 — VO2max short efforts
+- NOR_Brick_BikeRun — brick session
+
+### Zwift Pacer Rides (Z2 alternative, no ZWO)
+- Coco: 2.5 w/kg (~188W, 64% FTP) — only recommended Z2 pacer
+- Diesel/Constance/Endo are too hard for Z2
+
+### Run
+- NOR_Run_5x6_Threshold — threshold intervals
+- NOR_Run_Brick_OffBike — brick run off bike
+- NOR_Run_Easy_Zone1 — recovery run
+- NOR_Run_Long_NegativeSplit — long aerobic run
+- NOR_Run_PreRace_Opener — pre-race activation
+- NOR_Run_RacePace_5x8 — race pace intervals
+- NOR_Run_Strides_Neuromuscular — strides / leg speed
+- NOR_Run_Tempo_3x12 — tempo cruise intervals
+- NOR_Run_VO2max_7x3 — VO2max run intervals
+
+### Swim
+- NOR_Swim_EasyAerobic_30min
+- NOR_Swim_CSS_Threshold_30min
+- NOR_Swim_Speed_45min
+- NOR_Swim_RaceSim_45min
+- NOR_Swim_PullBuoy_Strength_30min
+- NOR_Swim_Fins_Technique_30min
+
+## Prescription Rules
+- Never schedule two runs on consecutive days unless TSB > −5 and explicitly requested
+- Never prescribe two hard sessions back-to-back without fatigue context
+- Check TSB/CTL before prescribing any hard block
+- Run sessions: pace targets only, never power
+- Feel scale (inverted): 1=Very Strong, 2=Strong, 3=OK, 4=Weak, 5=Very Weak
+- RPE: 1–10 standard (higher = harder)
+
+## Scheduling
+When Gaël approves a plan, output a JSON block with EXACTLY this format (the app detects it):
+\`\`\`json
+{
+  "workouts": [
+    {"name": "NOR_Run_5x6_Threshold", "date": "2026-04-14"},
+    {"name": "NOR_Bike_SweetSpot_2x20", "date": "2026-04-15"}
+  ]
+}
+\`\`\`
+The app will detect this block and show a "Post to Calendar" button.
+
+## Communication Style
+- Concise, direct, action-oriented — Gaël is experienced, skip basics
+- Lead with the plan or answer, explain only if asked
+- Always derive today's date from the snapshot data provided at the start of each session`;
+
+// ─────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────
+let settings = { anthropicKey: '', railwayUrl: '', railwayKey: '' };
+let messages = []; // conversation history for Messages API
+let isLoading = false;
+let snapshotLoaded = false;
+
+// ─────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────
+function init() {
+  const saved = localStorage.getItem('tricoach_settings');
+  if (saved) {
+    try { settings = { ...settings, ...JSON.parse(saved) }; } catch(e) {}
+  }
+  if (!settings.railwayUrl) settings.railwayUrl = 'https://tri-coach-v2-production.up.railway.app';
+
+  if (!settings.railwayUrl || !settings.railwayKey) {
+    setStatus('Configure Railway connection in settings', '');
+    openSettings();
+  } else {
+    setStatus('Ready', 'ready');
+    loadSnapshot();
+  }
+
+  document.getElementById('input').addEventListener('input', updateSendBtn);
+  updateSendBtn();
+}
+
+// ─────────────────────────────────────────────
+//  SNAPSHOT
+// ─────────────────────────────────────────────
+async function loadSnapshot() {
+  if (!settings.railwayUrl) return;
+  setStatus('Fetching training data…', 'thinking');
+  try {
+    const res = await fetch(`${settings.railwayUrl}/snapshot`, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const raw = await res.text();
+
+    let displayStatus = 'Snapshot loaded · ready';
+    let snapshotContent;
+    try {
+      const data = JSON.parse(raw);
+      snapshotContent = `\`\`\`json\n${JSON.stringify(data, null, 2)}\n\`\`\``;
+      displayStatus = `CTL ${data.ctl ?? '?'} · ATL ${data.atl ?? '?'} · TSB ${data.tsb ?? '?'}`;
+    } catch(_) {
+      snapshotContent = raw;
+      const ctl = raw.match(/CTL[:\s]+([0-9.]+)/i)?.[1];
+      const atl = raw.match(/ATL[:\s]+([0-9.]+)/i)?.[1];
+      const tsb = raw.match(/TSB[:\s]+(-?[0-9.]+)/i)?.[1];
+      if (ctl) displayStatus = `CTL ${ctl} · ATL ${atl ?? '?'} · TSB ${tsb ?? '?'}`;
+    }
+
+    messages = [{
+      role: 'user',
+      content: `Here is my current training snapshot from Intervals.icu:\n\n${snapshotContent}\n\nUse this as context for our session. Acknowledge with a one-line summary of my current state, then wait for my question.`
+    }];
+    snapshotLoaded = true;
+    setStatus(displayStatus, 'ready');
+
+  } catch(e) {
+    const isCors = e.message?.includes('Failed to fetch') || e.name === 'TypeError';
+    if (isCors) {
+      setStatus('Snapshot unavailable (CORS — see settings)', 'error');
+      messages = [{
+        role: 'user',
+        content: `Snapshot auto-fetch unavailable (CORS). Proceed without live data — I will paste context manually if needed.`
+      }];
+    } else {
+      setStatus(`Snapshot error: ${e.message}`, 'error');
+      messages = [];
+    }
+    snapshotLoaded = false;
+  }
+}
+
+// ─────────────────────────────────────────────
+//  SEND MESSAGE
+// ─────────────────────────────────────────────
+async function handleSend() {
+  const input = document.getElementById('input');
+  const text = input.value.trim();
+  if (!text || isLoading) return;
+  if (!settings.railwayUrl || !settings.railwayKey) { openSettings(); return; }
+
+  input.value = '';
+  autoResize(input);
+  updateSendBtn();
+  hideEmpty();
+
+  addMessage('user', text);
+  messages.push({ role: 'user', content: text });
+
+  await streamResponse();
+}
+
+function quickSend(text) {
+  const input = document.getElementById('input');
+  input.value = text;
+  handleSend();
+}
+
+async function streamResponse() {
+  isLoading = true;
+  updateSendBtn();
+  setStatus('Thinking…', 'thinking');
+
+  const typingId = addTyping();
+
+  let fullText = '';
+  let assistantMsgEl = null;
+  let bubbleEl = null;
+
+  try {
+    const res = await fetch(`${settings.railwayUrl}/chat`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': settings.railwayKey
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 4096,
+        system: SYSTEM_PROMPT,
+        messages: messages,
+        stream: true
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: { message: res.statusText } }));
+      throw new Error(err?.error?.message || `HTTP ${res.status}`);
+    }
+
+    removeTyping(typingId);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'msg msg-assistant';
+    const label = document.createElement('div');
+    label.className = 'msg-label';
+    label.textContent = 'Coach';
+    bubbleEl = document.createElement('div');
+    bubbleEl.className = 'bubble';
+    wrap.appendChild(label);
+    wrap.appendChild(bubbleEl);
+    document.getElementById('messages').appendChild(wrap);
+    assistantMsgEl = wrap;
+    scrollBottom();
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || '';
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const raw = line.slice(6).trim();
+        if (raw === '[DONE]') break;
+        try {
+          const evt = JSON.parse(raw);
+          if (evt.type === 'content_block_delta' && evt.delta?.type === 'text_delta') {
+            fullText += evt.delta.text;
+            bubbleEl.innerHTML = renderMarkdown(fullText);
+            scrollBottom();
+          }
+        } catch(e) {}
+      }
+    }
+
+    const payload = extractWorkoutPayload(fullText);
+    if (payload) {
+      const card = buildScheduleCard(payload);
+      assistantMsgEl.appendChild(card);
+    }
+
+    messages.push({ role: 'assistant', content: fullText });
+    setStatus(`Ready · ${messages.length} messages`, 'ready');
+
+  } catch(e) {
+    removeTyping(typingId);
+    if (bubbleEl) { bubbleEl.innerHTML = `<span style="color:var(--accent2)">Error: ${e.message}</span>`; }
+    else { addMessage('assistant', `Error: ${e.message}`); }
+    setStatus(`Error: ${e.message}`, 'error');
+    console.error(e);
+  } finally {
+    isLoading = false;
+    updateSendBtn();
+    scrollBottom();
+  }
+}
+
+// ─────────────────────────────────────────────
+//  SCHEDULE
+// ─────────────────────────────────────────────
+function extractWorkoutPayload(text) {
+  const match = text.match(/```(?:json)?\s*(\{[\s\S]*?"workouts"[\s\S]*?\})\s*```/);
+  if (!match) return null;
+  try {
+    const data = JSON.parse(match[1]);
+    if (data.workouts && Array.isArray(data.workouts) && data.workouts.length > 0) return data;
+  } catch(e) {}
+  return null;
+}
+
+function buildScheduleCard(payload) {
+  const count = payload.workouts.length;
+  const dates = [...new Set(payload.workouts.map(w => w.date))].sort();
+  const range = dates.length > 1 ? `${dates[0]} → ${dates[dates.length-1]}` : dates[0];
+
+  const card = document.createElement('div');
+  card.className = 'schedule-card';
+  card.innerHTML = `
+    <div class="schedule-info">
+      <strong>${count} workout${count>1?'s':''} ready to schedule</strong>
+      <span>${range}</span>
+    </div>
+    <button class="btn-post" onclick="postToCalendar(this, ${JSON.stringify(payload).replace(/"/g,'&quot;')})">
+      📅 Post
+    </button>`;
+  return card;
+}
+
+async function postToCalendar(btn, payload) {
+  if (!settings.railwayUrl || !settings.railwayKey) {
+    showToast('Set Railway URL and key in settings', 'err');
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = 'Posting…';
+
+  try {
+    const res = await fetch(`${settings.railwayUrl}/schedule`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': settings.railwayKey
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    btn.textContent = '✓ Posted';
+    btn.classList.add('posted');
+    btn.disabled = true;
+    showToast(`${payload.workouts.length} workouts scheduled`, 'ok');
+
+    messages.push({
+      role: 'user',
+      content: `Workouts successfully posted to Intervals.icu calendar.`
+    });
+
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = '📅 Post';
+    const isCors = e.message?.includes('Failed to fetch') || e.name === 'TypeError';
+    showToast(isCors ? 'CORS error — add headers to Railway proxy' : `Failed: ${e.message}`, 'err');
+  }
+}
+
+// ─────────────────────────────────────────────
+//  MARKDOWN RENDERER
+// ─────────────────────────────────────────────
+function renderMarkdown(text) {
+  let html = text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/```(?:\w+)?\n?([\s\S]*?)```/g, (_, code) =>
+      `<pre><code>${code.trim()}</code></pre>`)
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+    .replace(/^---$/gm, '<hr>')
+    .replace(/^\|(.+)\|$/gm, (line) => {
+      if (line.match(/^\|[\s\-|:]+\|$/)) return '__TABLE_SEP__';
+      const cells = line.slice(1,-1).split('|').map(c => c.trim());
+      return '__TABLE_ROW__' + cells.join('__CELL__');
+    });
+
+  if (html.includes('__TABLE_ROW__')) {
+    const lines = html.split('\n');
+    let inTable = false;
+    let headerDone = false;
+    let result = [];
+    for (let i = 0; i < lines.length; i++) {
+      const l = lines[i];
+      if (l.startsWith('__TABLE_ROW__')) {
+        if (!inTable) { result.push('<table>'); inTable = true; headerDone = false; }
+        const cells = l.replace('__TABLE_ROW__','').split('__CELL__');
+        if (!headerDone) {
+          result.push('<tr>' + cells.map(c=>`<th>${c}</th>`).join('') + '</tr>');
+        } else {
+          result.push('<tr>' + cells.map(c=>`<td>${c}</td>`).join('') + '</tr>');
+        }
+      } else if (l === '__TABLE_SEP__') {
+        headerDone = true;
+      } else {
+        if (inTable) { result.push('</table>'); inTable = false; }
+        result.push(l);
+      }
+    }
+    if (inTable) result.push('</table>');
+    html = result.join('\n');
+  }
+
+  html = html.replace(/^([\-\*]) (.+)$/gm, '<li>$2</li>');
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, m => `<ul>${m}</ul>`);
+  html = html.replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
+
+  html = html.split('\n').map(line => {
+    if (!line.trim()) return '';
+    if (line.match(/^<(h[23]|ul|ol|li|pre|table|tr|th|td|hr|blockquote)/)) return line;
+    if (line.match(/^__/)) return line;
+    return `<p>${line}</p>`;
+  }).join('\n');
+
+  return html;
+}
+
+// ─────────────────────────────────────────────
+//  DOM HELPERS
+// ─────────────────────────────────────────────
+function addMessage(role, text) {
+  hideEmpty();
+  const wrap = document.createElement('div');
+  wrap.className = `msg msg-${role}`;
+  const label = document.createElement('div');
+  label.className = 'msg-label';
+  label.textContent = role === 'user' ? 'You' : 'Coach';
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  if (role === 'assistant') {
+    bubble.innerHTML = renderMarkdown(text);
+  } else {
+    bubble.textContent = text;
+  }
+  wrap.appendChild(label);
+  wrap.appendChild(bubble);
+  document.getElementById('messages').appendChild(wrap);
+  scrollBottom();
+  return wrap;
+}
+
+let typingCounter = 0;
+function addTyping() {
+  hideEmpty();
+  const id = ++typingCounter;
+  const wrap = document.createElement('div');
+  wrap.className = 'msg typing-wrap';
+  wrap.id = `typing-${id}`;
+  const label = document.createElement('div');
+  label.className = 'msg-label';
+  label.textContent = 'Coach';
+  const t = document.createElement('div');
+  t.className = 'typing';
+  t.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  wrap.appendChild(label);
+  wrap.appendChild(t);
+  document.getElementById('messages').appendChild(wrap);
+  scrollBottom();
+  return id;
+}
+
+function removeTyping(id) {
+  const el = document.getElementById(`typing-${id}`);
+  if (el) el.remove();
+}
+
+function hideEmpty() {
+  const e = document.getElementById('emptyState');
+  if (e) e.remove();
+}
+
+function scrollBottom() {
+  const m = document.getElementById('messages');
+  m.scrollTop = m.scrollHeight;
+}
+
+function setStatus(text, state) {
+  document.getElementById('statusText').textContent = text;
+  const dot = document.getElementById('statusDot');
+  dot.className = 'dot' + (state ? ` ${state}` : '');
+}
+
+function updateSendBtn() {
+  const input = document.getElementById('input');
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = isLoading || !input.value.trim();
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSend();
+  }
+}
+
+// ─────────────────────────────────────────────
+//  SESSION
+// ─────────────────────────────────────────────
+function newSession() {
+  messages = [];
+  snapshotLoaded = false;
+  document.getElementById('messages').innerHTML = `
+    <div class="empty" id="emptyState">
+      <div class="empty-icon">🏊‍♂️🚴‍♂️🏃‍♂️</div>
+      <div class="empty-title">New session</div>
+      <div class="empty-sub">Ask me to plan your week, check your load, or review your schedule.</div>
+    </div>`;
+  if (settings.railwayUrl) loadSnapshot();
+}
+
+// ─────────────────────────────────────────────
+//  SETTINGS
+// ─────────────────────────────────────────────
+function openSettings() {
+  document.getElementById('s-railway-url').value = settings.railwayUrl || 'https://tri-coach-v2-production.up.railway.app';
+  document.getElementById('s-railway-key').value = settings.railwayKey || '';
+  document.getElementById('settingsOverlay').classList.add('open');
+}
+
+function closeSettings(e) {
+  if (e.target === document.getElementById('settingsOverlay')) {
+    document.getElementById('settingsOverlay').classList.remove('open');
+  }
+}
+
+function saveSettings() {
+  settings.railwayUrl = document.getElementById('s-railway-url').value.trim() || 'https://tri-coach-v2-production.up.railway.app';
+  settings.railwayKey = document.getElementById('s-railway-key').value.trim();
+  localStorage.setItem('tricoach_settings', JSON.stringify(settings));
+  document.getElementById('settingsOverlay').classList.remove('open');
+  showToast('Settings saved', 'ok');
+  if (settings.railwayUrl && !snapshotLoaded) loadSnapshot();
+  else if (settings.railwayUrl) setStatus('Ready', 'ready');
+}
+
+function clearAll() {
+  if (!confirm('Clear all settings and conversation history?')) return;
+  localStorage.clear();
+  location.reload();
+}
+
+// ─────────────────────────────────────────────
+//  TOAST
+// ─────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = 'toast'; }, 3000);
+}
+
+// ─────────────────────────────────────────────
+//  BOOT
+// ─────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
