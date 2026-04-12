@@ -1,18 +1,33 @@
 import os
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response, stream_with_context
 from datetime import datetime, timedelta
 import pytz
-from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 
 INTERVALS_API_KEY = os.environ.get("INTERVALS_API_KEY")
 API_SECRET = os.environ.get("API_SECRET")
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 ATHLETE_ID = "i169728"
 BASE_URL = f"https://intervals.icu/api/v1/athlete/{ATHLETE_ID}"
 TZ = pytz.timezone("America/Montreal")
+
+# --- CORS ---
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "X-API-Key, Content-Type"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+    return response
+
+@app.route("/", defaults={"path": ""}, methods=["OPTIONS"])
+@app.route("/<path:path>", methods=["OPTIONS"])
+def handle_options(path):
+    return "", 200
+
+# --- Helpers ---
 
 def now_local():
     return datetime.now(TZ)
@@ -38,6 +53,8 @@ def intervals_post(path, payload):
     )
     response.raise_for_status()
     return response.json()
+
+# --- Existing endpoints ---
 
 @app.route("/athlete")
 def athlete():
@@ -214,6 +231,50 @@ def schedule():
             errors.append({"workout_id": workout_id, "date": date, "error": str(e)})
 
     return jsonify({"scheduled": results, "errors": errors})
+
+# --- Anthropic proxy ---
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    if not check_auth():
+        return jsonify({"error": "Unauthorized"}), 401
+
+    if not ANTHROPIC_API_KEY:
+        return jsonify({"error": "ANTHROPIC_API_KEY not configured"}), 500
+
+    body = request.get_json()
+    if not body:
+        return jsonify({"error": "Missing request body"}), 400
+
+    headers = {
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+    }
+    stream = body.get("stream", False)
+
+    upstream = requests.post(
+        "https://api.anthropic.com/v1/messages",
+        headers=headers,
+        json=body,
+        stream=stream,
+    )
+
+    if stream:
+        def generate():
+            for chunk in upstream.iter_content(chunk_size=None):
+                yield chunk
+        return Response(
+            stream_with_context(generate()),
+            status=upstream.status_code,
+            content_type="text/event-stream",
+        )
+
+    return Response(
+        upstream.content,
+        status=upstream.status_code,
+        content_type="application/json",
+    )
 
 if __name__ == "__main__":
     app.run()
