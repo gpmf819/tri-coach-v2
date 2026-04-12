@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 INTERVALS_API_KEY = os.environ.get("INTERVALS_API_KEY")
 API_SECRET = os.environ.get("API_SECRET")
-ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
+ANTHROPIC_API_KEY = (os.environ.get("ANTHROPIC_API_KEY") or "").strip()
 ATHLETE_ID = "i169728"
 BASE_URL = f"https://intervals.icu/api/v1/athlete/{ATHLETE_ID}"
 TZ = pytz.timezone("America/Montreal")
