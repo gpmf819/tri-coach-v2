@@ -219,7 +219,12 @@ def schedule():
         if not workout_id and name:
             workout_id = name_to_id.get(name)
             if not workout_id:
-                errors.append({"name": name, "date": date, "error": f"Workout '{name}' not found in library"})
+                errors.append({
+                    "name": name,
+                    "date": date,
+                    "error": f"Workout '{name}' not found in library",
+                    "available": sorted(name_to_id.keys())
+                })
                 continue
 
         if not workout_id or not date:
