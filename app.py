@@ -253,10 +253,10 @@ def schedule():
             payload = {
                 "category": "WORKOUT",
                 "start_date_local": f"{date}T00:00:00",
-                "type": workout["type"],
-                "name": workout["name"],
-                "moving_time": workout["moving_time"],
-                "description": workout["description"],
+                "type": workout.get("type"),
+                "name": workout.get("name"),
+                "moving_time": workout.get("moving_time"),
+                "description": workout.get("description", ""),
             }
             result = intervals_post("/events", payload)
             results.append({

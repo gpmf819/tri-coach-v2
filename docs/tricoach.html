@@ -652,7 +652,7 @@ When Gaël approves a plan, call the schedule_workouts tool directly — do not 
 Always use the exact names from this list when calling schedule_workouts.
 {WORKOUT_LIBRARY}`;
 
-let liveSystemPrompt = SYSTEM_PROMPT;
+let liveSystemPrompt = SYSTEM_PROMPT.replace('{WORKOUT_LIBRARY}', '(loading…)');
 
 // ─────────────────────────────────────────────
 //  TOOL DEFINITION
