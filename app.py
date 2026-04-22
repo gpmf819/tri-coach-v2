@@ -182,6 +182,20 @@ def workouts():
     data = intervals_get("/workouts")
     return jsonify([{"id": w.get("id"), "name": w.get("name"), "type": w.get("type")} for w in (data or [])])
 
+@app.route("/workouts/names")
+def workout_names():
+    data = intervals_get("/workouts")
+    by_type = {}
+    for w in (data or []):
+        t = w.get("type", "Other")
+        by_type.setdefault(t, []).append(w.get("name", ""))
+    lines = ["Available workouts by type:"]
+    for t, names in sorted(by_type.items()):
+        lines.append(f"\n{t}:")
+        for n in sorted(names):
+            lines.append(f"  - {n}")
+    return "\n".join(lines), 200, {"Content-Type": "text/plain"}
+
 @app.route("/workouts/<int:workout_id>")
 def workout_detail(workout_id):
     if not check_auth():
@@ -208,6 +222,8 @@ def schedule():
         try:
             all_workouts = intervals_get("/workouts")
             name_to_id = {w["name"]: w["id"] for w in (all_workouts or []) if w.get("name") and w.get("id")}
+            # Normalized fallback: case-insensitive, underscores↔spaces
+            name_to_id_norm = {k.lower().replace("_", " "): v for k, v in name_to_id.items()}
         except Exception as e:
             return jsonify({"error": f"Failed to fetch workout library: {e}"}), 502
 
@@ -217,7 +233,7 @@ def schedule():
         date = item.get("date", "").strip()
 
         if not workout_id and name:
-            workout_id = name_to_id.get(name)
+            workout_id = name_to_id.get(name) or name_to_id_norm.get(name.lower().replace("_", " "))
             if not workout_id:
                 errors.append({
                     "name": name,

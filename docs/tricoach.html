@@ -646,7 +646,12 @@ When Gaël approves a plan, call the schedule_workouts tool directly — do not 
 ## Communication Style
 - Concise, direct, action-oriented — Gaël is experienced, skip basics
 - Lead with the plan or answer, explain only if asked
-- Always derive today's date from the snapshot data provided at the start of each session`;
+- Always derive today's date from the snapshot data provided at the start of each session
+
+## Live Workout Library
+{WORKOUT_LIBRARY}`;
+
+let liveSystemPrompt = SYSTEM_PROMPT;
 
 // ─────────────────────────────────────────────
 //  TOOL DEFINITION
@@ -710,10 +715,21 @@ async function loadSnapshot() {
   if (!settings.railwayUrl) return;
   setStatus('Fetching training data…', 'thinking');
   try {
-    const res = await fetch(`${settings.railwayUrl}/snapshot`, { signal: AbortSignal.timeout(8000) });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const [snapshotRes, libraryRes] = await Promise.all([
+      fetch(`${settings.railwayUrl}/snapshot`, { signal: AbortSignal.timeout(8000) }),
+      fetch(`${settings.railwayUrl}/workouts/names`, { signal: AbortSignal.timeout(8000) })
+    ]);
 
-    const raw = await res.text();
+    if (!snapshotRes.ok) throw new Error(`HTTP ${snapshotRes.status}`);
+    const raw = await snapshotRes.text();
+
+    // Inject live workout library into system prompt
+    if (libraryRes.ok) {
+      const libraryText = await libraryRes.text();
+      liveSystemPrompt = SYSTEM_PROMPT.replace('{WORKOUT_LIBRARY}', libraryText);
+    } else {
+      liveSystemPrompt = SYSTEM_PROMPT.replace('{WORKOUT_LIBRARY}', '(unavailable — use names from the Workout Library section above)');
+    }
 
     let displayStatus = 'Snapshot loaded · ready';
     let snapshotContent;
@@ -748,6 +764,7 @@ async function loadSnapshot() {
       setStatus(`Snapshot error: ${e.message}`, 'error');
       messages = [];
     }
+    liveSystemPrompt = SYSTEM_PROMPT.replace('{WORKOUT_LIBRARY}', '(unavailable)');
     snapshotLoaded = false;
   }
 }
@@ -808,7 +825,7 @@ async function streamOnce() {
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
       max_tokens: 4096,
-      system: SYSTEM_PROMPT,
+      system: liveSystemPrompt,
       messages,
       tools: [SCHEDULE_TOOL],
       stream: true
