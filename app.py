@@ -200,12 +200,30 @@ def schedule():
     results = []
     errors = []
 
-    for item in data["workouts"]:
+    # Build name→id map once if any item uses name instead of workout_id
+    items = data["workouts"]
+    needs_name_lookup = any(item.get("name") and not item.get("workout_id") for item in items)
+    name_to_id = {}
+    if needs_name_lookup:
+        try:
+            all_workouts = intervals_get("/workouts")
+            name_to_id = {w["name"]: w["id"] for w in (all_workouts or []) if w.get("name") and w.get("id")}
+        except Exception as e:
+            return jsonify({"error": f"Failed to fetch workout library: {e}"}), 502
+
+    for item in items:
         workout_id = item.get("workout_id")
+        name = item.get("name", "").strip()
         date = item.get("date", "").strip()
 
+        if not workout_id and name:
+            workout_id = name_to_id.get(name)
+            if not workout_id:
+                errors.append({"name": name, "date": date, "error": f"Workout '{name}' not found in library"})
+                continue
+
         if not workout_id or not date:
-            errors.append({"workout_id": workout_id, "error": "Missing workout_id or date"})
+            errors.append({"workout_id": workout_id, "error": "Missing workout_id (or name) and date"})
             continue
 
         try:
