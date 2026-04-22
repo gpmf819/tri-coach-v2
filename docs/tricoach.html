@@ -264,20 +264,11 @@
     .schedule-info { flex: 1; }
     .schedule-info strong { display: block; font-size: 12px; color: var(--text); margin-bottom: 2px; }
     .schedule-info span { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); }
-
     .btn-post {
-      background: var(--accent);
-      color: #000;
-      border: none;
-      border-radius: var(--r-sm);
-      padding: 8px 13px;
-      font-family: var(--font-ui);
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: all 0.15s;
+      background: var(--accent); color: #000; border: none;
+      border-radius: var(--r-sm); padding: 8px 13px;
+      font-family: var(--font-ui); font-size: 12px; font-weight: 700;
+      cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s;
     }
     .btn-post:hover { background: #33d8ff; }
     .btn-post:disabled { background: var(--text-dimmer); cursor: not-allowed; }
@@ -519,7 +510,6 @@
     <button class="quick-btn" onclick="quickSend('How is my training load looking?')">📊 Check load</button>
     <button class="quick-btn" onclick="quickSend('What does today look like?')">🎯 Today</button>
     <button class="quick-btn" onclick="quickSend('I feel tired, adjust the plan')">😴 Adjust for fatigue</button>
-    <button class="quick-btn" onclick="quickSend('post it')">✅ Post it</button>
   </div>
 
   <!-- INPUT -->
@@ -651,16 +641,7 @@ Always prescribe by exact filename without .zwo extension.
 - RPE: 1–10 standard (higher = harder)
 
 ## Scheduling
-When Gaël approves a plan, output a JSON block with EXACTLY this format (the app detects it):
-\`\`\`json
-{
-  "workouts": [
-    {"name": "NOR_Run_5x6_Threshold", "date": "2026-04-14"},
-    {"name": "NOR_Bike_SweetSpot_2x20", "date": "2026-04-15"}
-  ]
-}
-\`\`\`
-The app will detect this block and show a "Post to Calendar" button.
+When Gaël approves a plan, call the schedule_workouts tool directly — do not output a JSON code block. The tool posts the workouts to Intervals.icu immediately.
 
 ## Communication Style
 - Concise, direct, action-oriented — Gaël is experienced, skip basics
@@ -668,9 +649,34 @@ The app will detect this block and show a "Post to Calendar" button.
 - Always derive today's date from the snapshot data provided at the start of each session`;
 
 // ─────────────────────────────────────────────
+//  TOOL DEFINITION
+// ─────────────────────────────────────────────
+const SCHEDULE_TOOL = {
+  name: 'schedule_workouts',
+  description: 'Schedule one or more workouts to the Intervals.icu calendar. Call this when the athlete approves a plan.',
+  input_schema: {
+    type: 'object',
+    properties: {
+      workouts: {
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            name: { type: 'string', description: 'Exact workout filename without .zwo extension' },
+            date: { type: 'string', description: 'Date in YYYY-MM-DD format' }
+          },
+          required: ['name', 'date']
+        }
+      }
+    },
+    required: ['workouts']
+  }
+};
+
+// ─────────────────────────────────────────────
 //  STATE
 // ─────────────────────────────────────────────
-let settings = { anthropicKey: '', railwayUrl: '', railwayKey: '' };
+let settings = { railwayUrl: '', railwayKey: '' };
 let messages = []; // conversation history for Messages API
 let isLoading = false;
 let snapshotLoaded = false;
@@ -776,89 +782,14 @@ async function streamResponse() {
   isLoading = true;
   updateSendBtn();
   setStatus('Thinking…', 'thinking');
-
-  const typingId = addTyping();
-
-  let fullText = '';
-  let assistantMsgEl = null;
-  let bubbleEl = null;
-
   try {
-    const res = await fetch(`${settings.railwayUrl}/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': settings.railwayKey
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 4096,
-        system: SYSTEM_PROMPT,
-        messages: messages,
-        stream: true
-      })
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({ error: { message: res.statusText } }));
-      throw new Error(err?.error?.message || `HTTP ${res.status}`);
+    let shouldContinue = true;
+    while (shouldContinue) {
+      shouldContinue = await streamOnce();
     }
-
-    removeTyping(typingId);
-
-    const wrap = document.createElement('div');
-    wrap.className = 'msg msg-assistant';
-    const label = document.createElement('div');
-    label.className = 'msg-label';
-    label.textContent = 'Coach';
-    bubbleEl = document.createElement('div');
-    bubbleEl.className = 'bubble';
-    wrap.appendChild(label);
-    wrap.appendChild(bubbleEl);
-    document.getElementById('messages').appendChild(wrap);
-    assistantMsgEl = wrap;
-    scrollBottom();
-
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
-      buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop() || '';
-
-      for (const line of lines) {
-        if (!line.startsWith('data: ')) continue;
-        const raw = line.slice(6).trim();
-        if (raw === '[DONE]') break;
-        try {
-          const evt = JSON.parse(raw);
-          if (evt.type === 'content_block_delta' && evt.delta?.type === 'text_delta') {
-            fullText += evt.delta.text;
-            bubbleEl.innerHTML = renderMarkdown(fullText);
-            scrollBottom();
-          }
-        } catch(e) {}
-      }
-    }
-
-    const payload = extractWorkoutPayload(fullText);
-    if (payload) {
-      const card = buildScheduleCard(payload);
-      assistantMsgEl.appendChild(card);
-    }
-
-    messages.push({ role: 'assistant', content: fullText });
     setStatus(`Ready · ${messages.length} messages`, 'ready');
-
   } catch(e) {
-    removeTyping(typingId);
-    if (bubbleEl) { bubbleEl.innerHTML = `<span style="color:var(--accent2)">Error: ${e.message}</span>`; }
-    else { addMessage('assistant', `Error: ${e.message}`); }
+    addMessage('assistant', `Error: ${e.message}`);
     setStatus(`Error: ${e.message}`, 'error');
     console.error(e);
   } finally {
@@ -868,72 +799,159 @@ async function streamResponse() {
   }
 }
 
-// ─────────────────────────────────────────────
-//  SCHEDULE
-// ─────────────────────────────────────────────
-function extractWorkoutPayload(text) {
-  const match = text.match(/```(?:json)?\s*(\{[\s\S]*?"workouts"[\s\S]*?\})\s*```/);
-  if (!match) return null;
-  try {
-    const data = JSON.parse(match[1]);
-    if (data.workouts && Array.isArray(data.workouts) && data.workouts.length > 0) return data;
-  } catch(e) {}
-  return null;
+async function streamOnce() {
+  const typingId = addTyping();
+
+  const res = await fetch(`${settings.railwayUrl}/chat`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-API-Key': settings.railwayKey },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 4096,
+      system: SYSTEM_PROMPT,
+      messages,
+      tools: [SCHEDULE_TOOL],
+      stream: true
+    })
+  });
+
+  if (!res.ok) {
+    removeTyping(typingId);
+    const err = await res.json().catch(() => ({ error: { message: res.statusText } }));
+    throw new Error(err?.error?.message || `HTTP ${res.status}`);
+  }
+
+  removeTyping(typingId);
+
+  let assistantContent = [];
+  let bubbleEl = null;
+  let assistantMsgEl = null;
+  let currentBlock = null;
+  let stopReason = null;
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() || '';
+
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const raw = line.slice(6).trim();
+      if (raw === '[DONE]') break;
+      try {
+        const evt = JSON.parse(raw);
+
+        if (evt.type === 'content_block_start') {
+          currentBlock = { type: evt.content_block.type, content: '' };
+          if (evt.content_block.type === 'tool_use') {
+            currentBlock.id = evt.content_block.id;
+            currentBlock.name = evt.content_block.name;
+          }
+          if (evt.content_block.type === 'text' && !assistantMsgEl) {
+            const wrap = document.createElement('div');
+            wrap.className = 'msg msg-assistant';
+            const label = document.createElement('div');
+            label.className = 'msg-label';
+            label.textContent = 'Coach';
+            bubbleEl = document.createElement('div');
+            bubbleEl.className = 'bubble';
+            wrap.appendChild(label);
+            wrap.appendChild(bubbleEl);
+            document.getElementById('messages').appendChild(wrap);
+            assistantMsgEl = wrap;
+            scrollBottom();
+          }
+        } else if (evt.type === 'content_block_delta') {
+          if (evt.delta.type === 'text_delta' && currentBlock?.type === 'text') {
+            currentBlock.content += evt.delta.text;
+            if (bubbleEl) { bubbleEl.innerHTML = renderMarkdown(currentBlock.content); scrollBottom(); }
+          } else if (evt.delta.type === 'input_json_delta' && currentBlock?.type === 'tool_use') {
+            currentBlock.content += evt.delta.partial_json;
+          }
+        } else if (evt.type === 'content_block_stop' && currentBlock) {
+          if (currentBlock.type === 'text') {
+            assistantContent.push({ type: 'text', text: currentBlock.content });
+          } else if (currentBlock.type === 'tool_use') {
+            assistantContent.push({
+              type: 'tool_use',
+              id: currentBlock.id,
+              name: currentBlock.name,
+              input: JSON.parse(currentBlock.content || '{}')
+            });
+          }
+          currentBlock = null;
+        } else if (evt.type === 'message_delta') {
+          stopReason = evt.delta.stop_reason;
+        }
+      } catch(e) {}
+    }
+  }
+
+  messages.push({ role: 'assistant', content: assistantContent });
+
+  if (stopReason === 'tool_use') {
+    const block = assistantContent.find(b => b.type === 'tool_use' && b.name === 'schedule_workouts');
+    if (block) showScheduleCard(block);
+    return false; // wait for user to click Post
+  }
+
+  return false; // done
 }
 
-function buildScheduleCard(payload) {
-  const count = payload.workouts.length;
-  const dates = [...new Set(payload.workouts.map(w => w.date))].sort();
-  const range = dates.length > 1 ? `${dates[0]} → ${dates[dates.length-1]}` : dates[0];
+// ─────────────────────────────────────────────
+//  SCHEDULE CARD
+// ─────────────────────────────────────────────
+const pendingTools = {};
+
+function showScheduleCard(block) {
+  pendingTools[block.id] = block.input;
+  const count = block.input.workouts.length;
+  const dates = [...new Set(block.input.workouts.map(w => w.date))].sort();
+  const range = dates.length > 1 ? `${dates[0]} → ${dates[dates.length - 1]}` : dates[0];
 
   const card = document.createElement('div');
   card.className = 'schedule-card';
   card.innerHTML = `
     <div class="schedule-info">
-      <strong>${count} workout${count>1?'s':''} ready to schedule</strong>
+      <strong>${count} workout${count > 1 ? 's' : ''} ready to post</strong>
       <span>${range}</span>
     </div>
-    <button class="btn-post" onclick="postToCalendar(this, ${JSON.stringify(payload).replace(/"/g,'&quot;')})">
-      📅 Post
-    </button>`;
-  return card;
+    <button class="btn-post" onclick="executeSchedule(this, '${block.id}')">📅 Post</button>`;
+
+  const lastMsg = document.getElementById('messages').querySelector('.msg-assistant:last-of-type');
+  if (lastMsg) lastMsg.appendChild(card);
+  else document.getElementById('messages').appendChild(card);
+  scrollBottom();
 }
 
-async function postToCalendar(btn, payload) {
-  if (!settings.railwayUrl || !settings.railwayKey) {
-    showToast('Set Railway URL and key in settings', 'err');
-    return;
-  }
+async function executeSchedule(btn, toolId) {
+  if (isLoading) return;
   btn.disabled = true;
   btn.textContent = 'Posting…';
-
+  const input = pendingTools[toolId];
   try {
-    const res = await fetch(`${settings.railwayUrl}/schedule`, {
+    const r = await fetch(`${settings.railwayUrl}/schedule`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': settings.railwayKey
-      },
-      body: JSON.stringify(payload)
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': settings.railwayKey },
+      body: JSON.stringify(input)
     });
-
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
+    const result = await r.json();
     btn.textContent = '✓ Posted';
     btn.classList.add('posted');
-    btn.disabled = true;
-    showToast(`${payload.workouts.length} workouts scheduled`, 'ok');
-
-    messages.push({
-      role: 'user',
-      content: `Workouts successfully posted to Intervals.icu calendar.`
-    });
-
+    messages.push({ role: 'user', content: [{ type: 'tool_result', tool_use_id: toolId, content: JSON.stringify(result) }] });
+    delete pendingTools[toolId];
+    await streamResponse(); // get Claude's confirmation
   } catch(e) {
     btn.disabled = false;
     btn.textContent = '📅 Post';
-    const isCors = e.message?.includes('Failed to fetch') || e.name === 'TypeError';
-    showToast(isCors ? 'CORS error — add headers to Railway proxy' : `Failed: ${e.message}`, 'err');
+    showToast(`Failed: ${e.message}`, 'err');
   }
 }
 
