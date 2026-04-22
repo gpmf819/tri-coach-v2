@@ -218,6 +218,7 @@ def schedule():
     items = data["workouts"]
     needs_name_lookup = any(item.get("name") and not item.get("workout_id") for item in items)
     name_to_id = {}
+    name_to_id_norm = {}
     if needs_name_lookup:
         try:
             all_workouts = intervals_get("/workouts")
