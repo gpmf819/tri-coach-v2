@@ -771,7 +771,7 @@ async function loadSnapshot() {
 
     messages = [{
       role: 'user',
-      content: `Here is my current training snapshot from Intervals.icu:\n\n${snapshotContent}\n\nUse this as context for our session. Acknowledge with a one-line summary of my current state, then wait for my question.`
+      content: `Here is my current training snapshot from Intervals.icu:\n\n${snapshotContent}\n\nStart the session with a short "Mike's Message" — 2-3 sentences. Read the data and give me your honest take: where I'm at, what it means, what you're thinking. Be Mike about it. Then wait for my question.`
     }];
     snapshotLoaded = true;
     setStatus(displayStatus, 'ready');
