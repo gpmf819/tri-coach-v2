@@ -7,21 +7,21 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Tri Coach">
   <meta name="theme-color" content="#080a0f">
-  <title>Tri Coach</title>
+  <title>Midpack Mike</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #080a0f;
-      --surface: #0f1219;
-      --surface2: #161b24;
-      --border: #1e2635;
-      --accent: #00c9ff;
-      --accent2: #ff5a3c;
-      --text: #e8edf5;
-      --text-dim: #6b7a96;
-      --text-dimmer: #2e3a52;
-      --success: #00e49a;
+      --bg: #0c0c0c;
+      --surface: #141414;
+      --surface2: #1e1e1e;
+      --border: #2e2e2e;
+      --accent: #ffffff;
+      --accent2: #ff4040;
+      --text: #f0f0f0;
+      --text-dim: #888888;
+      --text-dimmer: #444444;
+      --success: #cccccc;
       --font-ui: 'Syne', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --r: 12px;
@@ -69,12 +69,16 @@
     .logo-mark {
       width: 34px;
       height: 34px;
-      background: linear-gradient(135deg, var(--accent), #0066ff);
+      border: 1px solid var(--border);
       border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      letter-spacing: -0.5px;
+      color: var(--text);
       flex-shrink: 0;
     }
 
@@ -132,8 +136,8 @@
       flex-shrink: 0;
       transition: all 0.3s;
     }
-    .dot.ready { background: var(--success); box-shadow: 0 0 8px var(--success); }
-    .dot.thinking { background: var(--accent); animation: blink 1s infinite; }
+    .dot.ready { background: var(--success); }
+    .dot.thinking { background: var(--text-dim); animation: blink 1s infinite; }
     .dot.error { background: var(--accent2); }
 
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
@@ -191,7 +195,7 @@
     }
 
     /* Markdown inside bubbles */
-    .bubble strong { color: var(--accent); font-weight: 700; }
+    .bubble strong { color: var(--text); font-weight: 700; }
     .bubble em { color: var(--text-dim); font-style: italic; }
     .bubble code {
       font-family: var(--font-mono);
@@ -222,7 +226,7 @@
     .bubble h2, .bubble h3 {
       font-size: 13px;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--text);
       margin: 12px 0 5px;
       letter-spacing: -0.2px;
     }
@@ -242,7 +246,7 @@
     .bubble td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
     .bubble tr:last-child td { border-bottom: none; }
     .bubble blockquote {
-      border-left: 3px solid var(--accent);
+      border-left: 2px solid var(--border);
       padding-left: 10px;
       margin: 6px 0;
       color: var(--text-dim);
@@ -253,7 +257,7 @@
     .schedule-card {
       margin-top: 10px;
       background: var(--bg);
-      border: 1px solid var(--accent);
+      border: 1px solid var(--border);
       border-radius: var(--r);
       padding: 10px 12px;
       display: flex;
@@ -270,9 +274,9 @@
       font-family: var(--font-ui); font-size: 12px; font-weight: 700;
       cursor: pointer; white-space: nowrap; flex-shrink: 0; transition: all 0.15s;
     }
-    .btn-post:hover { background: #33d8ff; }
-    .btn-post:disabled { background: var(--text-dimmer); cursor: not-allowed; }
-    .btn-post.posted { background: var(--success); color: #000; }
+    .btn-post:hover { background: var(--text-dim); color: #000; }
+    .btn-post:disabled { background: var(--text-dimmer); color: var(--surface); cursor: not-allowed; }
+    .btn-post.posted { background: var(--text-dimmer); color: var(--text-dim); }
 
     /* Typing */
     .typing-wrap { align-items: flex-start; }
@@ -371,7 +375,7 @@
       flex-shrink: 0;
       transition: all 0.15s;
     }
-    .btn-send:hover { background: #33d8ff; transform: scale(1.06); }
+    .btn-send:hover { background: var(--text-dim); transform: scale(1.06); }
     .btn-send:active { transform: scale(0.94); }
     .btn-send:disabled { background: var(--text-dimmer); cursor: not-allowed; transform: none; }
 
@@ -434,7 +438,7 @@
       font-size: 15px; font-weight: 700;
       cursor: pointer; transition: background 0.15s; margin-top: 6px;
     }
-    .btn-primary:hover { background: #33d8ff; }
+    .btn-primary:hover { background: var(--text-dim); }
 
     .divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
 
@@ -473,10 +477,10 @@
   <!-- HEADER -->
   <div class="header">
     <div class="logo">
-      <div class="logo-mark">🚴</div>
+      <div class="logo-mark">MM</div>
       <div class="logo-info">
-        <div class="logo-name">Tri Coach</div>
-        <div class="logo-sub">Midpack Mike · Tremblant 5150 · Jun 20</div>
+        <div class="logo-name">Midpack Mike</div>
+        <div class="logo-sub">Gaël · Tremblant 5150 · Jun 20</div>
       </div>
     </div>
     <div class="header-right">
@@ -498,7 +502,6 @@
   <!-- MESSAGES -->
   <div class="messages" id="messages">
     <div class="empty" id="emptyState">
-      <div class="empty-icon">🏊‍♂️🚴‍♂️🏃‍♂️</div>
       <div class="empty-title">Ready to train</div>
       <div class="empty-sub">Ask me to plan your week, check your load, or review your schedule.</div>
     </div>
@@ -506,10 +509,10 @@
 
   <!-- QUICK ACTIONS (only show when no messages) -->
   <div class="quick-actions" id="quickActions">
-    <button class="quick-btn" onclick="quickSend('Plan my week')">📅 Plan week</button>
-    <button class="quick-btn" onclick="quickSend('How is my training load looking?')">📊 Check load</button>
-    <button class="quick-btn" onclick="quickSend('What does today look like?')">🎯 Today</button>
-    <button class="quick-btn" onclick="quickSend('I feel tired, adjust the plan')">😴 Adjust for fatigue</button>
+    <button class="quick-btn" onclick="quickSend('Plan my week')">Plan week</button>
+    <button class="quick-btn" onclick="quickSend('How is my training load looking?')">Check load</button>
+    <button class="quick-btn" onclick="quickSend('What does today look like?')">Today</button>
+    <button class="quick-btn" onclick="quickSend('I feel tired, adjust the plan')">Adjust for fatigue</button>
   </div>
 
   <!-- INPUT -->
@@ -520,7 +523,7 @@
           onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
       </div>
       <button class="btn-send" id="sendBtn" onclick="handleSend()">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#000"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
   </div>
@@ -961,7 +964,7 @@ function showScheduleCard(block) {
       <strong>${count} workout${count > 1 ? 's' : ''} ready to post</strong>
       <span>${range}</span>
     </div>
-    <button class="btn-post" onclick="executeSchedule(this, '${block.id}')">📅 Post</button>`;
+    <button class="btn-post" onclick="executeSchedule(this, '${block.id}')">Post</button>`;
 
   const lastMsg = document.getElementById('messages').querySelector('.msg-assistant:last-of-type');
   if (lastMsg) lastMsg.appendChild(card);
@@ -1145,7 +1148,6 @@ function newSession() {
   snapshotLoaded = false;
   document.getElementById('messages').innerHTML = `
     <div class="empty" id="emptyState">
-      <div class="empty-icon">🏊‍♂️🚴‍♂️🏃‍♂️</div>
       <div class="empty-title">New session</div>
       <div class="empty-sub">Ask me to plan your week, check your load, or review your schedule.</div>
     </div>`;
